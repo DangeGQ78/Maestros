@@ -7,8 +7,11 @@ import '../models/users.dart';
 class UsersController extends GetxController {
   final Rxn<List<Users>> _usersFirebase = Rxn<List<Users>>();
   late RxString mensaje = "".obs;
-  User? user = FirebaseAuth.instance.currentUser;
-  Future<void> consultarUsuarios() async {}
+  User? user;
+
+  Future<void> consultarUsuario() async {
+    user = FirebaseAuth.instance.currentUser;
+  }
 
   Future<void> crearUsuario(String email, String pass) async {
     mensaje.value = await PeticionesUser.createUser(email, pass);
@@ -34,6 +37,10 @@ class UsersController extends GetxController {
 
       return false;
     }
+  }
+
+  void cerrarSesion() async {
+    PeticionesUser.cerrarSesion();
   }
 
   void mensajeDeError(String mensaje) {

@@ -1,16 +1,23 @@
+import 'grupos.dart';
+
 class Materia {
   final String nombre;
-  final Map<String, Map<String, String>> grupos;
+  final Map<int, Grupo> grupos;
 
   Materia({
     required this.nombre,
     required this.grupos,
   });
 
-  factory Materia.fromMap(Map<String, dynamic> map) {
+  factory Materia.fromJson(Map<String, dynamic> json) {
+    Map<int, Grupo> grupos = {};
+    for (Map<String, dynamic> grupoJson in json['grupos']) {
+      Grupo grupo = Grupo.fromJson(grupoJson);
+      grupos[grupoJson['id']] = grupo;
+    }
     return Materia(
-      nombre: map['nombre'] ?? '',
-      grupos: Map<String, Map<String, String>>.from(map['grupos'] ?? {}),
+      nombre: json['nombre'],
+      grupos: grupos,
     );
   }
 }

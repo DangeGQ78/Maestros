@@ -67,7 +67,7 @@ class text_pass extends StatelessWidget {
         obscureText: true,
         decoration: InputDecoration(
           hintText: "password",
-          prefixIcon: const Icon(Icons.password),
+          prefixIcon: const Icon(Icons.key),
           border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
               borderSide: BorderSide(color: colors)),
@@ -97,8 +97,12 @@ class text_email extends StatelessWidget {
       padding: const EdgeInsets.only(left: 50, right: 50),
       child: TextField(
         controller: textEmail,
+        keyboardType: TextInputType.emailAddress,
         decoration: InputDecoration(
-          hintText: "username@correo.com",
+          hintText: "imail@example.com",
+          prefixIcon: const Icon(
+            Icons.account_circle,
+          ),
           border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
               borderSide: BorderSide(color: colors)),

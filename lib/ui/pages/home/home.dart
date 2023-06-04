@@ -1,3 +1,4 @@
+import 'package:calendar_view/calendar_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:maestros/domain/controllers/controllerUsers.dart';
@@ -13,14 +14,32 @@ class Home extends StatelessWidget {
         appBar: AppBar(
           title: const Text("HOME"),
           backgroundColor: micolor,
+          actions: [
+            IconButton(
+                onPressed: () {
+                  controlu.cerrarSesion();
+                  Get.offAllNamed("/login");
+                },
+                icon: const Icon(Icons.logout))
+          ],
         ),
         drawer: const DrawerGlobal(),
         body: Center(
           child: Column(
-            children: [Boxdate(), Text("${controlu.user?.email}")],
+            children: [const Boxdate(), Text(recuperarUsuario())],
           ),
         ));
   }
+}
+
+String recuperarUsuario() {
+  UsersController controlu = Get.find();
+  String email = "";
+  controlu
+      .consultarUsuario()
+      .then((value) => {email = controlu.user!.email.toString()});
+  print(email);
+  return email;
 }
 
 class Boxdate extends StatelessWidget {

@@ -1,18 +1,21 @@
 import 'dart:async';
-import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart' as fs;
+import 'package:maestros/domain/controllers/controllerUsers.dart';
 
 class PeticionesUser {
   static final fs.FirebaseStorage storage = fs.FirebaseStorage.instance;
   static final FirebaseFirestore _db = FirebaseFirestore.instance;
-
+  UsersController _controller = UsersController();
   static Future<String> createUser(String email, String pass) async {
     try {
       final Credential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: pass);
+      if (Credential != null) {
+        Map<String, dynamic> datos = {'email': email};
+        _db.collection('user').add(datos);
+      }
 
       return "resgistro exitoso";
     } on FirebaseAuthException catch (e) {
@@ -35,6 +38,10 @@ class PeticionesUser {
   }
 
   static Future<void> consultarUsuario() async {}
+
+  static void cerrarSesion() async {
+    FirebaseAuth.instance.signOut();
+  }
 
   static Future<void> consultarListaUsuarios() async {}
 }
