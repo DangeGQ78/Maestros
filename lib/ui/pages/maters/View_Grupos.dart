@@ -4,8 +4,8 @@ import 'package:maestros/domain/controllers/controllerMaterias.dart';
 import 'package:maestros/domain/controllers/controllerUsers.dart';
 import 'package:maestros/domain/models/grupos.dart';
 
-class View_Materias extends StatelessWidget {
-  const View_Materias({super.key});
+class View_grupos extends StatelessWidget {
+  const View_grupos({super.key});
   static Color miColor = const Color.fromRGBO(0, 191, 99, 1);
 
   @override
@@ -21,10 +21,36 @@ class View_Materias extends StatelessWidget {
       body: Obx(() => ListView.builder(
             itemCount: materiac.MateriaFirebase.length,
             itemBuilder: (BuildContext context, int index) {
-              return ExpansionTile(
-                  title: Text(materiac.MateriaFirebase[index].nombre),
-                  children: _buildGruposPorMateria(
-                      materiac.MateriaFirebase[index].grupos));
+              return Card(
+                elevation: 5,
+                color: const Color.fromRGBO(2, 238, 124, 1),
+                child: ListTile(
+                    title: Text(materiac.MateriaFirebase[index].nombre),
+                    trailing: Row(mainAxisSize: MainAxisSize.min, children: [
+                      IconButton(
+                          onPressed: () {
+                            materiac
+                                .eliminarGrupo(
+                                    materiac.MateriaFirebase[index].id)
+                                .then((value) {
+                              Get.snackbar("Materia", materiac.mensaje.value,
+                                  duration: const Duration(seconds: 5));
+                            });
+                          },
+                          icon: const Icon(Icons.delete)),
+                      IconButton(
+                          onPressed: () {
+                            materiac
+                                .eliminarGrupo(
+                                    materiac.MateriaFirebase[index].id)
+                                .then((value) {
+                              Get.snackbar("Materia", materiac.mensaje.value,
+                                  duration: const Duration(seconds: 5));
+                            });
+                          },
+                          icon: const Icon(Icons.edit)),
+                    ])),
+              );
             },
           )),
       floatingActionButton: FloatingActionButton(
@@ -37,23 +63,6 @@ class View_Materias extends StatelessWidget {
   }
 }
 
-List<Widget> _buildGruposPorMateria(Map<int, Grupo> g) {
-  // Aquí puedes obtener los nombres de los grupos desde el mapa de grupos
-  List<String> nombresGrupos = g.values.map((grupo) => grupo.nombre).toList();
-
-  return nombresGrupos
-      .map((nombreGrupo) => ListTile(
-            title: Text(nombreGrupo),
-            trailing: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                IconButton(onPressed: () {}, icon: const Icon(Icons.edit)),
-                IconButton(onPressed: () {}, icon: const Icon(Icons.delete))
-              ],
-            ),
-          ))
-      .toList();
-}
 
 /*
 FutureBuilder(

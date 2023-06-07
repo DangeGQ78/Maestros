@@ -62,11 +62,13 @@ class button_signUp extends StatelessWidget {
               controlu
                   .crearUsuario(textImail.text, textPassword.text)
                   .then((value) {
-                Get.snackbar('Maestros', controlu.mensaje.value,
-                    duration: const Duration(seconds: 3),
-                    icon: const Icon(Icons.info),
-                    shouldIconPulse: true,
-                    backgroundColor: Colors.yellow);
+                Get.snackbar(
+                  'Maestros',
+                  controlu.mensaje.value,
+                  duration: const Duration(seconds: 3),
+                  icon: const Icon(Icons.info),
+                  shouldIconPulse: true,
+                );
               });
 
               Get.back();

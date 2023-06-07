@@ -3,25 +3,23 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart' as fs;
 import 'package:maestros/domain/controllers/controllerUsers.dart';
 import 'package:maestros/domain/models/Materias.dart';
+import 'package:maestros/domain/models/dias.dart';
+import 'package:maestros/domain/models/grupos.dart';
 
 class PeticionesMateria {
   static final fs.FirebaseStorage storage = fs.FirebaseStorage.instance;
   static final FirebaseFirestore _db = FirebaseFirestore.instance;
 
-  static Future<String> guardarMateria(Materia materia, uid) async {
+  static Future<String> guardarGrupo(Grupo grupo, uid) async {
     if (uid == null) {
       return "no inicio sesion";
     }
     try {
-      Map<String, dynamic> gruposMap = {};
-
-      materia.grupos.forEach((id, grupo) {
-        gruposMap[id.toString()] = {'nombre': grupo.nombre};
-      });
-      await _db.collection('materias').add({
+      var dias = convertirDiasAData(grupo.dias);
+      await _db.collection('grupos').add({
         'idUser': uid,
-        'nombre': materia.nombre,
-        'grupos': gruposMap,
+        'nombre': grupo.nombre,
+        'horario': dias,
       });
       return "Materia guardada";
     } on FirebaseException catch (e) {
@@ -31,12 +29,28 @@ class PeticionesMateria {
 
   static Future<QuerySnapshot<Map<String, dynamic>>> consultarMaterias(
       uid) async {
-    print(
-        "$uid--------------------------------------------------------------------");
-    int i = 0;
     var querySnapshot =
-        await _db.collection('materias').where('idUser', isEqualTo: uid).get();
+        await _db.collection('grupos').where('idUser', isEqualTo: uid).get();
 
     return querySnapshot;
+  }
+
+  static Future<String> eliminargrupo(id) async {
+    try {
+      _db.collection("grupos").doc(id).delete();
+      return "materia eliminada exitosamente";
+    } catch (e) {
+      return "no se pudo eliminar";
+    }
+  }
+
+  static List<Map<String, dynamic>> convertirDiasAData(List<Dia> dias) {
+    return dias.map((dia) {
+      return {
+        'nombre': dia.nombre,
+        'horaInicio': "${dia.horaInicio.hour}:${dia.horaInicio.minute}",
+        'horaFin': "${dia.horaFin.hour}:${dia.horaFin.minute}",
+      };
+    }).toList();
   }
 }

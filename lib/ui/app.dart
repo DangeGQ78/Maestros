@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:maestros/ui/auth/login.dart';
 import 'package:maestros/ui/auth/registrarse.dart';
 import 'package:maestros/ui/pages/horario/ViewHorario.dart';
-import 'package:maestros/ui/pages/maters/View_materias.dart';
+import 'package:maestros/ui/pages/maters/View_Grupos.dart';
 import 'package:maestros/ui/pages/actividades.dart';
 import 'package:maestros/ui/pages/home/home.dart';
 import 'package:maestros/ui/pages/list_student/listas.dart';
@@ -43,23 +43,13 @@ class App extends StatelessWidget {
       routes: {
         "/login": (context) => const Login(),
         "/home": (context) => const Home(),
-        "/materias": (context) => const View_Materias(),
+        "/materias": (context) => const View_grupos(),
         "/materiasAdd": (context) => const AddMaerias(),
         "/actividades": (context) => const Actividades(),
-        "/horario": (context) => const ViewHorario(),
+        "/horario": (context) => ViewHorario(),
         "/listas": (context) => const Listas(),
         "/registrarse": (context) => const Regristrase()
       },
     );
-  }
-
-  void comprobarUser() {
-    FirebaseAuth.instance.authStateChanges().listen((User? user) {
-      if (user == null) {
-        Get.toNamed("/login");
-      } else {
-        Get.toNamed("/home");
-      }
-    });
   }
 }

@@ -25,13 +25,14 @@ class DrawerGlobal extends StatelessWidget {
           title: const Center(child: Text("Materias")),
           onTap: () {
             materiac
-                .consultarMateria(userc.user?.email)
+                .consultarGrupos(userc.user?.email)
                 .then((value) => Get.toNamed("/materias"));
           },
         ),
         ListTile(
           title: const Center(child: Text("Horario")),
           onTap: () {
+            materiac.comprobarData();
             Get.toNamed("/horario");
           },
         ),

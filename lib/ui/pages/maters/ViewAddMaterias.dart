@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:maestros/domain/controllers/controllerDate.dart';
 import 'package:maestros/domain/controllers/controllerMaterias.dart';
 import 'package:maestros/domain/controllers/controllerUsers.dart';
 
@@ -12,9 +14,15 @@ class AddMaerias extends StatelessWidget {
     TextEditingController grupos = TextEditingController();
     MateriasController controlm = Get.find();
     UsersController controls = Get.find();
+    DateController controld = Get.find();
     //scaffoldAdd(nombre: nombre, grupos: grupos, controlm: controlm, controls: controls);
     return scaffoldAdd(
-        nombre: nombre, grupos: grupos, controlm: controlm, controls: controls);
+      nombre: nombre,
+      grupos: grupos,
+      controlm: controlm,
+      controls: controls,
+      controld: controld,
+    );
   }
 }
 
@@ -25,66 +33,178 @@ class scaffoldAdd extends StatelessWidget {
     required this.grupos,
     required this.controlm,
     required this.controls,
+    required this.controld,
   });
 
   final TextEditingController nombre;
   final TextEditingController grupos;
   final MateriasController controlm;
   final UsersController controls;
+  final DateController controld;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Agregar Materia"),
-      ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          text_nombre(nombre: nombre),
-          text_grupos(grupos: grupos),
-          TextButton(
-              onPressed: () {
-                controlm
-                    .crearMateria(nombre.text, int.parse(grupos.text),
-                        controls.user?.email)
-                    .then((value) {
-                  Get.snackbar("Materia", controlm.mensaje.value);
-                });
-                controlm.consultarMateria(controls.user?.email);
-
-                Get.back();
-              },
-              child: const Text("agregar"))
-        ],
-      ),
+    return WillPopScope(
+      onWillPop: () async {
+        controld.dias.clear();
+        return true;
+      },
+      child: Scaffold(
+          appBar: AppBar(
+            title: const Text("Agregar Materia"),
+          ),
+          body: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const SizedBox(
+                  height: 50,
+                ),
+                text_nombre(nombre: nombre),
+                IconButton(
+                  onPressed: () {
+                    controld.cargarDias();
+                  },
+                  icon: const Icon(Icons.add_circle_outline),
+                ),
+                Obx(
+                  () => ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: controld.dias.length,
+                    itemBuilder: (BuildContext context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.only(right: 10),
+                        child: Card(
+                          elevation: 5,
+                          child: ListTile(
+                            title: Text(controld.dias[index].nombre),
+                            subtitle: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text(
+                                    "Hora.I: ${controld.dias.value[index].horaInicio.format(context)}"),
+                                Text(
+                                    (" - Hora.F: ${controld.dias.value[index].horaFin.format(context)}")),
+                              ],
+                            ),
+                            trailing: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                IconButton(
+                                    onPressed: () {
+                                      _showFormDialog(context, controld, index);
+                                    },
+                                    icon: const Icon(Icons.edit)),
+                                IconButton(
+                                    onPressed: () {
+                                      controld.eliminar(index);
+                                    },
+                                    icon: const Icon(Icons.delete))
+                              ],
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
+          bottomNavigationBar: BottomAppBar(
+            height: 60,
+            elevation: 10,
+            notchMargin: double.maxFinite,
+            child: TextButton(
+                onPressed: () {
+                  if (verificarCampos(nombre.text, controld)) {
+                    controlm
+                        .crearGrupo(
+                            nombre.text, controld.dias, controls.user!.email)
+                        .then((value) {
+                      Get.snackbar("Grupos", controlm.mensaje.string,
+                          icon: const Icon(Icons.warning),
+                          duration: const Duration(seconds: 3));
+                    });
+                    Get.back();
+                  } else {
+                    Get.snackbar(
+                        "Grupos", "Digilencie los campos correctamente",
+                        icon: const Icon(Icons.warning),
+                        duration: const Duration(seconds: 3));
+                  }
+                },
+                child: const Text(
+                  "Guardar",
+                  style: TextStyle(fontSize: 25),
+                )),
+          )),
     );
   }
 }
 
-class text_grupos extends StatelessWidget {
-  const text_grupos({
-    super.key,
-    required this.grupos,
+void _showTimePicker(context, index, int i) {
+  DateController d = Get.find();
+  showTimePicker(
+          context: context, initialTime: const TimeOfDay(hour: 0, minute: 0))
+      .then((value) {
+    if (i == 1) {
+      value == null ? TimeOfDay.now() : d.setHoraInicio(index, value);
+      d.dias.refresh();
+    } else {
+      value == null ? TimeOfDay.now() : d.setHorafin(index, value);
+      d.dias.refresh();
+    }
   });
+}
 
-  final TextEditingController grupos;
+void _showFormDialog(context, DateController controld, index) {
+  showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text("Editar horario"),
+          content: Container(
+            height: 150,
+            child: Form(
+                child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _DropDownButton(controld, index),
+                Obx(() => TextButton(
+                    onPressed: () {
+                      _showTimePicker(context, index, 1);
+                    },
+                    child: Text(
+                        "Hora inicio :${controld.dias[index].horaInicio.format(context)}",
+                        style: const TextStyle(
+                          color: Colors.black,
+                        )))),
+                Obx(() => TextButton(
+                    onPressed: () {
+                      _showTimePicker(context, index, 2);
+                    },
+                    child: Text(
+                      "Hora fin     :${controld.dias[index].horaFin.format(context)}",
+                      style: const TextStyle(color: Colors.black),
+                    ))),
+              ],
+            )),
+          ),
+        );
+      });
+}
 
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 50, right: 50, bottom: 50),
-      child: TextField(
-        controller: grupos,
-        keyboardType: TextInputType.number,
-        decoration: InputDecoration(
-            hintText: "numero de grupos",
-            border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
-      ),
-    );
+bool verificarCampos(String n, DateController d) {
+  if (n.isEmpty) {
+    return false;
   }
+  if (d.dias.isEmpty) {
+    return false;
+  }
+
+  return true;
 }
 
 class text_nombre extends StatelessWidget {
@@ -111,18 +231,17 @@ class text_nombre extends StatelessWidget {
   }
 }
 
-void mostrarDialog(BuildContext context) {
-  showDialog<void>(
-    context: context,
-    builder: (BuildContext context) {
-      return AlertDialog(
-        content: scaffoldAdd(
-          nombre: TextEditingController(),
-          grupos: TextEditingController(),
-          controlm: MateriasController(),
-          controls: UsersController(),
-        ),
-      );
-    },
-  );
+_DropDownButton(DateController d, int i) {
+  List dias = ["lunes", "martes", "miercoles", "jueves", "viernes", "sabado"];
+
+  return DropdownButtonFormField(
+      items: dias
+          .map((dia) => DropdownMenuItem(
+                child: Text(dia),
+                value: dia,
+              ))
+          .toList(),
+      onChanged: (value) {
+        d.setDia(i, value.toString());
+      });
 }

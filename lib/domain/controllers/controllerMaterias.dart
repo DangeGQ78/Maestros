@@ -1,56 +1,69 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:maestros/domain/controllers/controllerUsers.dart';
-import 'package:maestros/domain/models/grupos.dart';
 import 'package:maestros/peticiones/peticionesMateria.dart';
+import 'package:maestros/domain/models/dias.dart';
 
 import '../models/Materias.dart';
 
 class MateriasController extends GetxController {
-  final RxList<Materia> MateriaFirebase = RxList<Materia>([]);
+  final RxList<Grupo> MateriaFirebase = RxList<Grupo>([]);
   UsersController userc = Get.find();
   final RxString mensaje = "".obs;
 
-  Future<void> consultarMateria(uid) async {
-    List<Materia> listafinal = [];
-    QuerySnapshot query = await PeticionesMateria.consultarMaterias(uid);
-    for (var doc in query.docs) {
-      var datos = doc.data() as Map<String, dynamic>;
-      String nombre = datos['nombre'] ?? '';
-      Map<String, dynamic> grupos = datos['grupos'] ?? {};
-      Map<int, Grupo> gruposMapeados = {};
-      grupos.forEach((key, value) {
-        int id = int.tryParse(key) ?? 0;
-        if (id > 0) {
-          Map<String, String> datosGrupo = value.cast<String, String>();
-          String nombreGrupo = datosGrupo['nombre'] ?? '';
-          Grupo grupo = Grupo(nombre: nombreGrupo);
-          gruposMapeados[id] = grupo;
-        }
-      });
-      Materia materia = Materia(nombre: nombre, grupos: gruposMapeados);
+  Future<void> consultarGrupos(correo) async {
+    List<Grupo> listafinal = [];
+    QuerySnapshot query = await PeticionesMateria.consultarMaterias(correo);
 
-      listafinal.add(materia);
+    String id;
+    String nombre;
+
+    for (var doc in query.docs) {
+      id = doc.id;
+      var datos = doc.data() as Map<String, dynamic>;
+      nombre = datos['nombre'];
+      List<dynamic> list = datos['horario'];
+      List<Dia> dias = [];
+      for (var e in list) {
+        dias.add(Dia(
+            nombre: e['nombre'],
+            horaInicio: formatHour(e['horaInicio']),
+            horaFin: formatHour(e['horaFin'])));
+      }
+
+      Grupo grupo = Grupo(nombre: nombre, id: id, dias: dias);
+      listafinal.add(grupo);
     }
 
     MateriaFirebase.value = listafinal;
-    for (int i = 0; i < MateriaFirebase.length; i++) {
-      print(MateriaFirebase[i].nombre);
+  }
+
+  Future<void> crearGrupo(nombre, dias, uid) async {
+    Grupo g = Grupo(nombre: nombre, dias: dias, id: "");
+    mensaje.value = await PeticionesMateria.guardarGrupo(g, uid);
+    consultarGrupos(uid);
+  }
+
+  Future<void> eliminarGrupo(id) async {
+    try {
+      mensaje.value = await PeticionesMateria.eliminargrupo(id);
+      consultarGrupos(userc.user!.email);
+    } catch (e) {
+      mensaje.value = "no se pudo eliminar";
     }
   }
 
-  Future<void> crearMateria(nombre, grupos, uid) async {
-    Materia m = Materia(nombre: nombre, grupos: generarGrupos(grupos));
-    mensaje.value = await PeticionesMateria.guardarMateria(m, uid);
-    consultarMateria(uid);
+  TimeOfDay formatHour(String time) {
+    List<String> s = time.split(":");
+    return TimeOfDay(hour: int.parse(s.first), minute: int.parse(s.last));
   }
 
-  Map<int, Grupo> generarGrupos(int cantidadGrupos) {
-    Map<int, Grupo> grupos = {};
-    for (int i = 1; i <= cantidadGrupos; i++) {
-      String nombreGrupo = 'grupo$i';
-      grupos[i] = Grupo(nombre: nombreGrupo);
+  void comprobarData() {
+    if (MateriaFirebase.isEmpty) {
+      consultarGrupos(userc.user?.email);
     }
-    return grupos;
   }
 }
