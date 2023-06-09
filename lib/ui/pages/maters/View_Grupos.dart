@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:maestros/domain/controllers/controllerMaterias.dart';
 import 'package:maestros/domain/controllers/controllerUsers.dart';
 import 'package:maestros/domain/models/grupos.dart';
+import 'package:maestros/ui/pages/maters/View_Edit_Grupos.dart';
 
 class View_grupos extends StatelessWidget {
   const View_grupos({super.key});
@@ -22,9 +23,11 @@ class View_grupos extends StatelessWidget {
             itemCount: materiac.MateriaFirebase.length,
             itemBuilder: (BuildContext context, int index) {
               return Card(
-                elevation: 5,
-                color: const Color.fromRGBO(2, 238, 124, 1),
+                elevation: 2,
+                color: const Color.fromARGB(255, 218, 226, 220),
                 child: ListTile(
+                    leading: const Icon(Icons.school,
+                        color: Colors.purple, size: 30),
                     title: Text(materiac.MateriaFirebase[index].nombre),
                     trailing: Row(mainAxisSize: MainAxisSize.min, children: [
                       IconButton(
@@ -34,19 +37,13 @@ class View_grupos extends StatelessWidget {
                                     materiac.MateriaFirebase[index].id)
                                 .then((value) {
                               Get.snackbar("Materia", materiac.mensaje.value,
-                                  duration: const Duration(seconds: 5));
+                                  duration: const Duration(seconds: 3));
                             });
                           },
                           icon: const Icon(Icons.delete)),
                       IconButton(
                           onPressed: () {
-                            materiac
-                                .eliminarGrupo(
-                                    materiac.MateriaFirebase[index].id)
-                                .then((value) {
-                              Get.snackbar("Materia", materiac.mensaje.value,
-                                  duration: const Duration(seconds: 5));
-                            });
+                            Get.to(() => EditGrupo(i: index));
                           },
                           icon: const Icon(Icons.edit)),
                     ])),

@@ -21,32 +21,69 @@ class DrawerGlobal extends StatelessWidget {
               borderRadius: BorderRadius.circular(10)),
           child: Image.asset("assets/ic_launcher.png"),
         ),
-        ListTile(
-          title: const Center(child: Text("Materias")),
-          onTap: () {
-            materiac
-                .consultarGrupos(userc.user?.email)
-                .then((value) => Get.toNamed("/materias"));
-          },
+        Card(
+          elevation: 2,
+          child: ListTile(
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: const [
+                Icon(Icons.school),
+                Center(child: Text("Grupos"))
+              ],
+            ),
+            onTap: () {
+              materiac
+                  .consultarGrupos(userc.user?.email)
+                  .then((value) => Get.toNamed("/materias"));
+            },
+          ),
         ),
-        ListTile(
-          title: const Center(child: Text("Horario")),
-          onTap: () {
-            materiac.comprobarData();
-            Get.toNamed("/horario");
-          },
+        Card(
+          elevation: 2,
+          child: ListTile(
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: const [
+                Icon(Icons.calendar_month),
+                Center(child: Text("Horario"))
+              ],
+            ),
+            onTap: () {
+              materiac.comprobarData();
+              Get.toNamed("/horario");
+            },
+          ),
         ),
-        ListTile(
-          title: const Center(child: Text("Listas")),
-          onTap: () {
-            Get.toNamed("/materias");
-          },
+        Card(
+          elevation: 2,
+          child: ListTile(
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: const [
+                Icon(Icons.people_alt),
+                Center(child: Text("Estudiantes"))
+              ],
+            ),
+            onTap: () {
+              materiac.comprobarData();
+              Get.toNamed("/listas");
+            },
+          ),
         ),
-        ListTile(
-          title: const Center(child: Text("Notas")),
-          onTap: () {
-            Get.toNamed("/materias");
-          },
+        Card(
+          elevation: 1,
+          child: ListTile(
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: const [
+                Icon(Icons.checklist_rounded),
+                Center(child: Text("Asistencia"))
+              ],
+            ),
+            onTap: () {
+              Get.toNamed("/materias");
+            },
+          ),
         ),
       ]),
     );

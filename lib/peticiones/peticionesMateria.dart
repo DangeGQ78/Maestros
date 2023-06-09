@@ -35,6 +35,20 @@ class PeticionesMateria {
     return querySnapshot;
   }
 
+  static Future<String> actualizarGrupo(Grupo g, email) async {
+    try {
+      var dias = convertirDiasAData(g.dias);
+      _db.collection('grupos').doc(g.id).update({
+        'idUser': email,
+        'nombre': g.nombre,
+        'horario': dias,
+      });
+      return "Grupo modificado";
+    } catch (e) {
+      return "no se pudo mofificar";
+    }
+  }
+
   static Future<String> eliminargrupo(id) async {
     try {
       _db.collection("grupos").doc(id).delete();

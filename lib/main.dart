@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:maestros/domain/controllers/controllerDate.dart';
 import 'package:maestros/domain/controllers/controllerHorario.dart';
 import 'package:maestros/domain/controllers/controllerMaterias.dart';
+import 'package:maestros/domain/controllers/controllerStudent.dart';
 import 'package:maestros/domain/controllers/controllerUsers.dart';
 import 'package:maestros/ui/app.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -31,6 +32,7 @@ void main() async {
   Get.put(MateriasController());
   Get.put(DateController());
   Get.put(HorarioController());
+  Get.put(StudentController());
   runApp(const App());
 }
 

@@ -14,7 +14,7 @@ class HorarioController extends GetxController {
   final UsersController userc = Get.find();
 
   void cargarClases() {
-    if (materiac.MateriaFirebase.isEmpty) {
+    if (listaClases.isEmpty) {
       materiac.consultarGrupos(userc.user!.email).then((value) {
         cargarEventos();
       });
@@ -24,6 +24,7 @@ class HorarioController extends GetxController {
   }
 
   void cargarEventos() {
+    listaClases.value.clear();
     DateTime diaActual;
     for (Grupo materia in materiac.MateriaFirebase) {
       for (var e in materia.dias) {

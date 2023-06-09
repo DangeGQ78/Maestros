@@ -13,6 +13,7 @@ class MateriasController extends GetxController {
   final RxList<Grupo> MateriaFirebase = RxList<Grupo>([]);
   UsersController userc = Get.find();
   final RxString mensaje = "".obs;
+  final RxString proximo = "".obs;
 
   Future<void> consultarGrupos(correo) async {
     List<Grupo> listafinal = [];
@@ -20,13 +21,15 @@ class MateriasController extends GetxController {
 
     String id;
     String nombre;
-
+    List<Dia> dias;
+    List<dynamic> list;
+    var datos;
     for (var doc in query.docs) {
       id = doc.id;
-      var datos = doc.data() as Map<String, dynamic>;
+      datos = doc.data() as Map<String, dynamic>;
       nombre = datos['nombre'];
-      List<dynamic> list = datos['horario'];
-      List<Dia> dias = [];
+      list = datos['horario'];
+      dias = [];
       for (var e in list) {
         dias.add(Dia(
             nombre: e['nombre'],
@@ -39,6 +42,7 @@ class MateriasController extends GetxController {
     }
 
     MateriaFirebase.value = listafinal;
+    obtenerDiaMasProximo();
   }
 
   Future<void> crearGrupo(nombre, dias, uid) async {
@@ -56,6 +60,12 @@ class MateriasController extends GetxController {
     }
   }
 
+  Future<void> updateGrupo(nombre, dias, id, uid) async {
+    Grupo g = Grupo(nombre: nombre, id: id, dias: dias);
+    mensaje.value = await PeticionesMateria.actualizarGrupo(g, uid);
+    obtenerDiaMasProximo();
+  }
+
   TimeOfDay formatHour(String time) {
     List<String> s = time.split(":");
     return TimeOfDay(hour: int.parse(s.first), minute: int.parse(s.last));
@@ -64,6 +74,27 @@ class MateriasController extends GetxController {
   void comprobarData() {
     if (MateriaFirebase.isEmpty) {
       consultarGrupos(userc.user?.email);
+    }
+  }
+
+  obtenerDiaMasProximo() {
+    final ahora = DateTime.now();
+    int hour = 11;
+    for (var g in MateriaFirebase) {
+      for (var d in g.dias) {
+        if ((ahora.weekday == 1 && d.nombre == "lunes") &&
+            (ahora.hour < d.horaInicio.hour)) {
+          proximo.value = "${d.nombre} - A las ${d.horaInicio.toString()}";
+        }
+        if ((ahora.weekday == 5 && d.nombre == "viernes") &&
+            (ahora.hour < d.horaInicio.hour)) {
+          if (hour > d.horaInicio.hour) {
+            hour = d.horaInicio.hour;
+            print(hour);
+            proximo.value = "${d.nombre} - A las ${d.horaInicio.hourOfPeriod}";
+          }
+        }
+      }
     }
   }
 }

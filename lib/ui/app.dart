@@ -4,11 +4,13 @@ import 'package:get/get.dart';
 import 'package:maestros/ui/auth/login.dart';
 import 'package:maestros/ui/auth/registrarse.dart';
 import 'package:maestros/ui/pages/horario/ViewHorario.dart';
+import 'package:maestros/ui/pages/maters/View_Edit_Grupos.dart';
 import 'package:maestros/ui/pages/maters/View_Grupos.dart';
 import 'package:maestros/ui/pages/actividades.dart';
 import 'package:maestros/ui/pages/home/home.dart';
-import 'package:maestros/ui/pages/list_student/listas.dart';
-import 'package:maestros/ui/pages/maters/ViewaddMaterias.dart';
+import 'package:maestros/ui/pages/students/View_List_Studen.dart';
+import 'package:maestros/ui/pages/maters/View_Add_Materias.dart';
+//ViewaddMaterias
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -47,7 +49,7 @@ class App extends StatelessWidget {
         "/materiasAdd": (context) => const AddMaerias(),
         "/actividades": (context) => const Actividades(),
         "/horario": (context) => ViewHorario(),
-        "/listas": (context) => const Listas(),
+        "/listas": (context) => const ListStudent(),
         "/registrarse": (context) => const Regristrase()
       },
     );

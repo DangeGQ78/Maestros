@@ -9,28 +9,6 @@ class ViewHorario extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     horarioc.cargarClases();
-    /*
-    List<Appointment> lista = [];
-
-    RecurrenceProperties recurrence =
-        RecurrenceProperties(startDate: DateTime.now());
-    recurrence.recurrenceType = RecurrenceType.daily;
-    recurrence.interval = 7;
-    Appointment appointment = Appointment(
-        subject: "ingles 01",
-        startTime: DateTime.now(),
-        endTime: DateTime.now().add(const Duration(hours: 2)),
-        recurrenceRule: SfCalendar.generateRRule(recurrence, DateTime.now(),
-            DateTime.now().add(const Duration(hours: 2))));
-    Appointment appointment2 = Appointment(
-        subject: "ingles 02",
-        startTime: DateTime.now(),
-        endTime: DateTime.now().add(const Duration(hours: 2)),
-        recurrenceRule: SfCalendar.generateRRule(recurrence, DateTime.now(),
-            DateTime.now().add(const Duration(hours: 2))));
-    lista.add(appointment2);
-    lista.add(appointment);
-   */
 
     return Scaffold(
         appBar: AppBar(
