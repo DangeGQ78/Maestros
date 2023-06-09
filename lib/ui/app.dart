@@ -8,8 +8,10 @@ import 'package:maestros/ui/pages/maters/View_Edit_Grupos.dart';
 import 'package:maestros/ui/pages/maters/View_Grupos.dart';
 import 'package:maestros/ui/pages/actividades.dart';
 import 'package:maestros/ui/pages/home/home.dart';
+import 'package:maestros/ui/pages/students/View_List_Assistance.dart';
 import 'package:maestros/ui/pages/students/View_List_Studen.dart';
 import 'package:maestros/ui/pages/maters/View_Add_Materias.dart';
+
 //ViewaddMaterias
 
 class App extends StatelessWidget {
@@ -20,6 +22,7 @@ class App extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: "maestros",
+      locale: const Locale('es', 'ES'),
       theme: ThemeData(
         colorScheme: ThemeData().colorScheme.copyWith(
               primary: const Color.fromRGBO(0, 191, 99, 1),
@@ -50,6 +53,7 @@ class App extends StatelessWidget {
         "/actividades": (context) => const Actividades(),
         "/horario": (context) => ViewHorario(),
         "/listas": (context) => const ListStudent(),
+        "/listaAsistencia": (context) => const ListAssistanceStudent(),
         "/registrarse": (context) => const Regristrase()
       },
     );

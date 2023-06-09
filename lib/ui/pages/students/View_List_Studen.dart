@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:maestros/domain/controllers/controllerMaterias.dart';
 import 'package:maestros/domain/controllers/controllerStudent.dart';
 import 'package:maestros/domain/models/Materias.dart';
+import 'package:maestros/domain/models/estudiante.dart';
 
 class ListStudent extends StatelessWidget {
   const ListStudent({super.key});
@@ -56,20 +57,79 @@ class ListStudent extends StatelessWidget {
                           ],
                         );
                       } else {
-                        return Card(
-                          elevation: 2,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10.0)),
-                          child: ListTile(
-                            leading: Icon(
-                              Icons.perm_contact_calendar_sharp,
-                              color: Colors.greenAccent.shade400,
-                              size: 40,
+                        return Dismissible(
+                          key: UniqueKey(),
+                          direction: DismissDirection.endToStart,
+                          background: Container(
+                            color: Colors.red,
+                            child: const Align(
+                                alignment: Alignment.centerRight,
+                                child: Padding(
+                                  padding:
+                                      EdgeInsets.symmetric(horizontal: 16.0),
+                                  child: Icon(
+                                    Icons.delete,
+                                    color: Colors.white,
+                                  ),
+                                )),
+                          ),
+                          confirmDismiss: (direction) async {
+                            bool confirmar = await showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: const Text("Confirmar eliminacion"),
+                                    content: const Text(
+                                        "Desea eliminar este estudiante?"),
+                                    actions: [
+                                      TextButton(
+                                          onPressed: () {
+                                            Get.back(result: false);
+                                          },
+                                          child: const Text("Cancelar")),
+                                      TextButton(
+                                          onPressed: () {
+                                            Get.back(result: true);
+                                          },
+                                          child: const Text("Confirmar"))
+                                    ],
+                                  );
+                                });
+
+                            if (confirmar) {
+                              controle
+                                  .eliminarEstudiante(
+                                      controle.listaEstudiante[index].id)
+                                  .then((value) {
+                                Get.snackbar(
+                                    "Estudiantes", controle.mensaje.value,
+                                    duration: const Duration(seconds: 5),
+                                    icon: const Icon(Icons.warning));
+                              });
+                              return true;
+                            }
+                          },
+                          child: Card(
+                            elevation: 2,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.0)),
+                            child: ListTile(
+                              trailing: IconButton(
+                                  onPressed: () {
+                                    _showFormDialogEdit(
+                                        context, controle, index);
+                                  },
+                                  icon: const Icon(Icons.edit)),
+                              leading: Icon(
+                                Icons.perm_contact_calendar_sharp,
+                                color: Colors.greenAccent.shade400,
+                                size: 40,
+                              ),
+                              title: Text(
+                                  "Nombres:${controle.listaEstudiante[index].nombre}"),
+                              subtitle: Text(
+                                  "Apellidos  :${controle.listaEstudiante[index].apellidos}"),
                             ),
-                            title: Text(
-                                "Nombres:${controle.listaEstudiante[index].nombre}"),
-                            subtitle: Text(
-                                "Apellidos  :${controle.listaEstudiante[index].apellidos}"),
                           ),
                         );
                       }
@@ -153,8 +213,69 @@ _showFormDialogAdd(context, StudentController controls) {
                 ),
                 TextButton(
                     onPressed: () async {
-                      await controls.guardarEstudiantes(
-                          textNombres.text, textApellidos.text);
+                      await controls
+                          .guardarEstudiantes(
+                              textNombres.text, textApellidos.text)
+                          .then((value) {
+                        Get.snackbar("Estudiante", controls.mensaje.value,
+                            duration: const Duration(seconds: 3),
+                            icon: const Icon(Icons.warning));
+                        Get.back();
+                      });
+                    },
+                    child: const Text("Guardar")),
+              ],
+            )
+          ],
+        );
+      });
+}
+
+_showFormDialogEdit(context, StudentController controls, int index) {
+  final TextEditingController textNombres = TextEditingController();
+  final TextEditingController textApellidos = TextEditingController();
+  textNombres.text = controls.listaEstudiante[index].nombre;
+  textApellidos.text = controls.listaEstudiante[index].apellidos;
+  showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text("Editar estudiante"),
+          content: SizedBox(
+            height: 150,
+            child: Form(
+                child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                TextField(
+                  controller: textNombres,
+                  decoration: const InputDecoration(label: Text("Nombres")),
+                ),
+                TextField(
+                  controller: textApellidos,
+                  decoration: const InputDecoration(label: Text("Apellidos")),
+                ),
+              ],
+            )),
+          ),
+          actions: [
+            ButtonBar(
+              alignment: MainAxisAlignment.spaceAround,
+              children: [
+                TextButton(
+                  onPressed: () {
+                    Get.back();
+                  },
+                  child: const Text("Cancelar"),
+                ),
+                TextButton(
+                    onPressed: () async {
+                      await controls.editarEstudiante(Estudiante(
+                          nombre: textNombres.text,
+                          apellidos: textApellidos.text,
+                          id: controls.listaEstudiante[index].id,
+                          classID: controls.listaEstudiante[index].classID));
 
                       Get.back();
                     },

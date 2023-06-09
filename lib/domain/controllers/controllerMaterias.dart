@@ -13,6 +13,7 @@ class MateriasController extends GetxController {
   final RxList<Grupo> MateriaFirebase = RxList<Grupo>([]);
   UsersController userc = Get.find();
   final RxString mensaje = "".obs;
+  final DateTime d = DateTime.now();
   final RxString proximo = "".obs;
 
   Future<void> consultarGrupos(correo) async {

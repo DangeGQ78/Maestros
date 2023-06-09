@@ -64,7 +64,7 @@ class Boxdate extends StatelessWidget {
       margin: const EdgeInsets.only(top: 50),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-        color: Colors.greenAccent.shade400,
+        color: Colors.blue.shade100,
       ),
       child: Column(
         children: [

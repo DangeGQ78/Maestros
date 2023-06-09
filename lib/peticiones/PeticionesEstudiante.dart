@@ -31,7 +31,27 @@ class PeticionesEstudiantes {
     }
   }
 
-  static Future<void> editarEstudiantes() async {}
+  static Future<String> editarEstudiantes(Estudiante e) async {
+    try {
+      _db.collection('estudiantes').doc(e.id).update({
+        'nombres': e.nombre,
+        'apellidos': e.apellidos,
+        'idclass': e.classID,
+        'id': e.id
+      });
 
-  static Future<void> eliminarEstudiantes() async {}
+      return "Estudiante actualizado";
+    } catch (e) {
+      return "No se pudo editar el Estudiante";
+    }
+  }
+
+  static Future<String> eliminarEstudiantes(id) async {
+    try {
+      _db.collection('estudiantes').doc(id).delete();
+      return "Estudiante eliminado";
+    } catch (e) {
+      return "No se pudo eliminar el estudiante";
+    }
+  }
 }

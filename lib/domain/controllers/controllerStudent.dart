@@ -28,10 +28,11 @@ class StudentController extends GetxController {
       var datos;
       for (var doc in query.docs) {
         datos = doc.data();
+
         e = Estudiante(
             nombre: datos['nombres'],
             apellidos: datos['apellidos'],
-            id: datos['id'],
+            id: doc.id,
             classID: datos['idclass']);
         lista.add(e);
       }
@@ -40,5 +41,15 @@ class StudentController extends GetxController {
     } else {
       mensaje.value = "compruebe su conexion";
     }
+  }
+
+  Future<void> eliminarEstudiante(id) async {
+    mensaje.value = await PeticionesEstudiantes.eliminarEstudiantes(id);
+    cargarEstudiantes();
+  }
+
+  Future<void> editarEstudiante(Estudiante e) async {
+    mensaje.value = await PeticionesEstudiantes.editarEstudiantes(e);
+    cargarEstudiantes();
   }
 }

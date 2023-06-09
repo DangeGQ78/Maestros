@@ -81,7 +81,8 @@ class DrawerGlobal extends StatelessWidget {
               ],
             ),
             onTap: () {
-              Get.toNamed("/materias");
+              materiac.comprobarData();
+              Get.toNamed("/listaAsistencia");
             },
           ),
         ),
