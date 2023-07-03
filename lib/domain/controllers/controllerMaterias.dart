@@ -25,6 +25,7 @@ class MateriasController extends GetxController {
     List<Dia> dias;
     List<dynamic> list;
     var datos;
+    DateTime d = DateTime.now();
     for (var doc in query.docs) {
       id = doc.id;
       datos = doc.data() as Map<String, dynamic>;
@@ -43,7 +44,6 @@ class MateriasController extends GetxController {
     }
 
     MateriaFirebase.value = listafinal;
-    obtenerDiaMasProximo();
   }
 
   Future<void> crearGrupo(nombre, dias, uid) async {
@@ -67,9 +67,11 @@ class MateriasController extends GetxController {
     obtenerDiaMasProximo();
   }
 
-  TimeOfDay formatHour(String time) {
+  DateTime formatHour(String time) {
     List<String> s = time.split(":");
-    return TimeOfDay(hour: int.parse(s.first), minute: int.parse(s.last));
+    DateTime d = DateTime.now();
+    return DateTime(
+        d.year, d.month, d.day, int.parse(s.first), int.parse(s.last));
   }
 
   void comprobarData() {
@@ -92,7 +94,7 @@ class MateriasController extends GetxController {
           if (hour > d.horaInicio.hour) {
             hour = d.horaInicio.hour;
             print(hour);
-            proximo.value = "${d.nombre} - A las ${d.horaInicio.hourOfPeriod}";
+            proximo.value = "${d.nombre} - A las ${d.horaInicio.toString()}";
           }
         }
       }

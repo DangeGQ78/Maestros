@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:maestros/domain/controllers/controllerHorario.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 import 'package:flutter/material.dart';
+import 'package:syncfusion_localizations/syncfusion_localizations.dart';
 
 class ViewHorario extends StatelessWidget {
   ViewHorario({super.key});
@@ -12,7 +13,7 @@ class ViewHorario extends StatelessWidget {
 
     return Scaffold(
         appBar: AppBar(
-          title: const Text("horario de claes"),
+          title: const Text("Horario de clases"),
         ),
         body: Obx(() => SfCalendar(
               firstDayOfWeek: 1,

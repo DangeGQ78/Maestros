@@ -9,17 +9,19 @@ class DateController extends GetxController {
   RxList<Dia> dias = <Dia>[].obs;
   RxList<Dia> dias2 = <Dia>[].obs;
   void cargarDias() {
+    DateTime d = DateTime.now();
     dias.add(Dia(
         nombre: "Lunes",
-        horaInicio: const TimeOfDay(hour: 0, minute: 0),
-        horaFin: const TimeOfDay(hour: 0, minute: 0)));
+        horaInicio: DateTime(d.year, d.month, d.day, 0, 0),
+        horaFin: DateTime(d.year, d.month, d.day, 0, 0)));
   }
 
   void cargarDias2() {
+    DateTime d = DateTime.now();
     dias2.add(Dia(
         nombre: "Lunes",
-        horaInicio: const TimeOfDay(hour: 0, minute: 0),
-        horaFin: const TimeOfDay(hour: 0, minute: 0)));
+        horaInicio: DateTime(d.year, d.month, d.day, 0, 0),
+        horaFin: DateTime(d.year, d.month, d.day, 0, 0)));
   }
 
   void cargarDiasEdit(int i) {
@@ -35,19 +37,26 @@ class DateController extends GetxController {
   }
 
   void setHoraInicio(int index, TimeOfDay t) {
-    dias[index].horaInicio = t;
+    final d = DateTime.now();
+    dias[index].horaInicio = DateTime(d.year, d.month, d.day, t.hour, t.minute);
   }
 
   void setHoraInicio2(int index, TimeOfDay t) {
-    dias2[index].horaInicio = t;
+    final d = DateTime.now();
+    dias2[index].horaInicio =
+        DateTime(d.year, d.month, d.day, t.hour, t.minute);
   }
 
   void setHorafin(int index, TimeOfDay t) {
-    dias[index].horaFin = t;
+    final d = DateTime.now();
+    dias[index].horaFin = DateTime(d.year, d.month, d.day, t.hour, t.minute);
+    ;
   }
 
   void setHorafin2(int index, TimeOfDay t) {
-    dias2[index].horaFin = t;
+    final d = DateTime.now();
+    dias2[index].horaFin = DateTime(d.year, d.month, d.day, t.hour, t.minute);
+    ;
   }
 
   void setDia(int index, String diaSemana) {

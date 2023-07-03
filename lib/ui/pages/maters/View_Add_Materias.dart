@@ -50,102 +50,96 @@ class scaffoldAdd extends StatelessWidget {
         controld.dias.clear();
         return true;
       },
-      child: GestureDetector(
-          behavior: HitTestBehavior.opaque,
-          onTap: () {
-            FocusScope.of(context).unfocus();
-          },
-          child: Scaffold(
-              appBar: AppBar(
-                title: const Text("Agregar Materia"),
-              ),
-              body: SingleChildScrollView(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const SizedBox(
-                      height: 50,
-                    ),
-                    text_nombre(nombre: nombre),
-                    IconButton(
-                      onPressed: () {
-                        controld.cargarDias();
-                      },
-                      icon: const Icon(Icons.add_circle_outline),
-                    ),
-                    Obx(
-                      () => ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: controld.dias.length,
-                        itemBuilder: (BuildContext context, index) {
-                          return Padding(
-                            padding: const EdgeInsets.only(right: 10),
-                            child: Card(
-                              elevation: 5,
-                              child: ListTile(
-                                title: Text(controld.dias[index].nombre),
-                                subtitle: Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Text(
-                                        "Hora.I: ${controld.dias.value[index].horaInicio.format(context)}"),
-                                    Text(
-                                        (" - Hora.F: ${controld.dias.value[index].horaFin.format(context)}")),
-                                  ],
-                                ),
-                                trailing: Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    IconButton(
-                                        onPressed: () {
-                                          _showFormDialog(
-                                              context, controld, index);
-                                        },
-                                        icon: const Icon(Icons.edit)),
-                                    IconButton(
-                                        onPressed: () {
-                                          controld.eliminar(index);
-                                        },
-                                        icon: const Icon(Icons.delete))
-                                  ],
-                                ),
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-                    ),
-                  ],
+      child: Scaffold(
+          appBar: AppBar(
+            title: const Text("Agregar Materia"),
+          ),
+          body: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const SizedBox(
+                  height: 50,
                 ),
-              ),
-              bottomNavigationBar: BottomAppBar(
-                height: 60,
-                elevation: 10,
-                notchMargin: double.maxFinite,
-                child: TextButton(
-                    onPressed: () {
-                      if (verificarCampos(nombre.text, controld)) {
-                        controlm
-                            .crearGrupo(nombre.text, controld.dias,
-                                controls.user!.email)
-                            .then((value) {
-                          Get.snackbar("Grupos", controlm.mensaje.string,
-                              icon: const Icon(Icons.warning),
-                              duration: const Duration(seconds: 3));
-                        });
-                        Get.back();
-                      } else {
-                        Get.snackbar(
-                            "Grupos", "Digilencie los campos correctamente",
-                            icon: const Icon(Icons.warning),
-                            duration: const Duration(seconds: 3));
-                      }
+                text_nombre(nombre: nombre),
+                IconButton(
+                  onPressed: () {
+                    controld.cargarDias();
+                  },
+                  icon: const Icon(Icons.add_circle_outline),
+                ),
+                Obx(
+                  () => ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: controld.dias.length,
+                    itemBuilder: (BuildContext context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.only(right: 10),
+                        child: Card(
+                          elevation: 5,
+                          child: ListTile(
+                            title: Text(controld.dias[index].nombre),
+                            subtitle: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text(
+                                    "Hora.I: ${convertirADateTime(controld.dias[index].horaInicio).format(context)}"),
+                                Text(
+                                    (" - Hora.F: ${convertirADateTime(controld.dias[index].horaFin).format(context)}")),
+                              ],
+                            ),
+                            trailing: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                IconButton(
+                                    onPressed: () {
+                                      _showFormDialog(context, controld, index);
+                                    },
+                                    icon: const Icon(Icons.edit)),
+                                IconButton(
+                                    onPressed: () {
+                                      controld.eliminar(index);
+                                    },
+                                    icon: const Icon(Icons.delete))
+                              ],
+                            ),
+                          ),
+                        ),
+                      );
                     },
-                    child: const Text(
-                      "Guardar",
-                      style: TextStyle(fontSize: 25),
-                    )),
-              ))),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          bottomNavigationBar: BottomAppBar(
+            height: 60,
+            elevation: 10,
+            notchMargin: double.maxFinite,
+            child: TextButton(
+                onPressed: () {
+                  if (verificarCampos(nombre.text, controld)) {
+                    controlm
+                        .crearGrupo(
+                            nombre.text, controld.dias, controls.user!.email)
+                        .then((value) {
+                      Get.snackbar("Grupos", controlm.mensaje.string,
+                          icon: const Icon(Icons.warning),
+                          duration: const Duration(seconds: 3));
+                    });
+                    Get.back();
+                  } else {
+                    Get.snackbar(
+                        "Grupos", "Digilencie los campos correctamente",
+                        icon: const Icon(Icons.warning),
+                        duration: const Duration(seconds: 3));
+                  }
+                },
+                child: const Text(
+                  "Guardar",
+                  style: TextStyle(fontSize: 25),
+                )),
+          )),
     );
   }
 }
@@ -184,7 +178,7 @@ void _showFormDialog(context, DateController controld, index) {
                       _showTimePicker(context, index, 1);
                     },
                     child: Text(
-                        "Hora inicio :${controld.dias[index].horaInicio.format(context)}",
+                        "Hora inicio :${convertirADateTime(controld.dias[index].horaInicio).format(context)}",
                         style: const TextStyle(
                           color: Colors.black,
                         )))),
@@ -193,7 +187,7 @@ void _showFormDialog(context, DateController controld, index) {
                       _showTimePicker(context, index, 2);
                     },
                     child: Text(
-                      "Hora fin     :${controld.dias[index].horaFin.format(context)}",
+                      "Hora fin     :${convertirADateTime(controld.dias[index].horaFin).format(context)}",
                       style: const TextStyle(color: Colors.black),
                     ))),
               ],
@@ -235,6 +229,10 @@ bool verificarCampos(String n, DateController d) {
   }
 
   return true;
+}
+
+TimeOfDay convertirADateTime(DateTime dt) {
+  return TimeOfDay(hour: dt.hour, minute: dt.minute);
 }
 
 class text_nombre extends StatelessWidget {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:maestros/domain/controllers/controllerAsistencia.dart';
 import 'package:maestros/domain/controllers/controllerDate.dart';
 import 'package:maestros/domain/controllers/controllerHorario.dart';
 import 'package:maestros/domain/controllers/controllerMaterias.dart';
@@ -33,6 +34,7 @@ void main() async {
   Get.put(DateController());
   Get.put(HorarioController());
   Get.put(StudentController());
+  Get.put(AsistenciaController());
   runApp(const App());
 }
 

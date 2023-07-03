@@ -28,7 +28,7 @@ class HorarioController extends GetxController {
     DateTime diaActual;
     for (Grupo materia in materiac.MateriaFirebase) {
       for (var e in materia.dias) {
-        diaActual = determinarfechaInicial(e.nombre);
+        diaActual = determinarFechaInicial(e.nombre);
         RecurrenceProperties recurrence =
             RecurrenceProperties(startDate: diaActual);
         recurrence.recurrenceType = RecurrenceType.daily;
@@ -51,31 +51,42 @@ class HorarioController extends GetxController {
 
   int restarHora(int hi, int hf) => hf - hi;
 
-  DateTime determinarfechaInicial(String dia) {
-    if (dia == "lunes") {
-      return DateTime(2023, 1, 2);
+  DateTime determinarFechaInicial(String dia) {
+    final diasSemana = {
+      'lunes': DateTime(2023, 1, 2),
+      'martes': DateTime(2023, 1, 3),
+      'miércoles': DateTime(2023, 1, 4),
+      'jueves': DateTime(2023, 1, 5),
+      'viernes': DateTime(2023, 1, 6),
+      'sábado': DateTime(2023, 1, 7),
+    };
+
+    final diaLowerCase = dia.toLowerCase();
+
+    return diasSemana.containsKey(diaLowerCase)
+        ? diasSemana[diaLowerCase]!
+        : DateTime(2023, 1, 2);
+  }
+
+  DateTime fechaProxima(MateriasController c) {
+    DateTime fechaActual = DateTime.now();
+    DateTime fechaProxima = DateTime(9999);
+    List<DateTime> fechas = [];
+    for (Grupo g in c.MateriaFirebase) {
+      for (Dia d in g.dias) {
+        print(d.horaInicio);
+        fechas.add(d.horaInicio);
+      }
     }
 
-    if (dia == "martes") {
-      return DateTime(2023, 1, 3);
+    for (DateTime fecha in fechas) {
+      if (fecha.isAfter(fechaActual) &&
+          (fechaProxima == null || fecha.isBefore(fechaProxima))) {
+        fechaProxima = fecha;
+      }
     }
 
-    if (dia == "miercoles") {
-      return DateTime(2023, 1, 4);
-    }
-
-    if (dia == "jueves") {
-      return DateTime(2023, 1, 5);
-    }
-
-    if (dia == "viernes") {
-      return DateTime(2023, 1, 6);
-    }
-
-    if (dia == "sabado") {
-      return DateTime(2023, 1, 7);
-    }
-    return DateTime(2023, 1, 2);
+    return fechaProxima;
   }
 }
 

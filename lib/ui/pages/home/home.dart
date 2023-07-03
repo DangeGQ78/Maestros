@@ -1,6 +1,6 @@
-import 'package:calendar_view/calendar_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:maestros/domain/controllers/controllerHorario.dart';
 import 'package:maestros/domain/controllers/controllerMaterias.dart';
 import 'package:maestros/domain/controllers/controllerStudent.dart';
 import 'package:maestros/domain/controllers/controllerUsers.dart';
@@ -20,9 +20,28 @@ class Home extends StatelessWidget {
           actions: [
             IconButton(
                 onPressed: () {
-                  controlu.cerrarSesion();
-                  mc.MateriaFirebase.clear();
-                  Get.offAllNamed("/login");
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          actions: [
+                            TextButton(
+                                onPressed: () {
+                                  Get.back();
+                                },
+                                child: const Text('Cancelar')),
+                            TextButton(
+                                onPressed: () {
+                                  controlu.cerrarSesion();
+                                  mc.MateriaFirebase.clear();
+                                  Get.offAllNamed("/login");
+                                },
+                                child: const Text('Salir'))
+                          ],
+                          title: const Text('Cerrar sesion'),
+                          content: const Text('Desea salir de la app?'),
+                        );
+                      });
                 },
                 icon: const Icon(Icons.logout))
           ],
@@ -59,6 +78,7 @@ class Boxdate extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     MateriasController mc = Get.find();
+    HorarioController hc = Get.find();
     mc.comprobarData();
     return Container(
       margin: const EdgeInsets.only(top: 50),
@@ -77,7 +97,7 @@ class Boxdate extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Obx(() => Text(mc.proximo.value)),
+            child: Text(DateTime.now().toString()),
           )
         ],
       ),

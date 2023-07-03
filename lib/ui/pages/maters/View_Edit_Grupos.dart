@@ -89,9 +89,9 @@ class scaffoldAdd extends StatelessWidget {
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
                                   Text(
-                                      "Hora.I: ${controld.dias2.value[index].horaInicio.format(context)}"),
+                                      "Hora.I :${convertirADateTime(controld.dias2[index].horaInicio).format(context)}"),
                                   Text(
-                                      (" - Hora.F: ${controld.dias2.value[index].horaFin.format(context)}")),
+                                      ("Hora.F :${convertirADateTime(controld.dias2[index].horaFin).format(context)}")),
                                 ],
                               ),
                               trailing: Row(
@@ -189,7 +189,7 @@ void _showFormDialog(context, DateController controld, index) {
                       _showTimePicker(context, index, 1);
                     },
                     child: Text(
-                        "Hora inicio :${controld.dias2[index].horaInicio.format(context)}",
+                        "Hora inicio :${convertirADateTime(controld.dias2[index].horaInicio).format(context)}",
                         style: const TextStyle(
                           color: Colors.black,
                         )))),
@@ -198,7 +198,7 @@ void _showFormDialog(context, DateController controld, index) {
                       _showTimePicker(context, index, 2);
                     },
                     child: Text(
-                      "Hora fin     :${controld.dias2[index].horaFin.format(context)}",
+                      "Hora inicio :${convertirADateTime(controld.dias2[index].horaFin).format(context)}",
                       style: const TextStyle(color: Colors.black),
                     ))),
               ],
@@ -217,6 +217,10 @@ bool verificarCampos(String n, DateController d) {
   }
 
   return true;
+}
+
+TimeOfDay convertirADateTime(DateTime dt) {
+  return TimeOfDay(hour: dt.hour, minute: dt.minute);
 }
 
 class text_nombre extends StatelessWidget {

@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:maestros/domain/controllers/controllerMaterias.dart';
@@ -75,6 +73,7 @@ class ListStudent extends StatelessWidget {
                           ),
                           confirmDismiss: (direction) async {
                             bool confirmar = await showDialog(
+                                barrierDismissible: false,
                                 context: context,
                                 builder: (BuildContext context) {
                                   return AlertDialog(
@@ -103,7 +102,7 @@ class ListStudent extends StatelessWidget {
                                   .then((value) {
                                 Get.snackbar(
                                     "Estudiantes", controle.mensaje.value,
-                                    duration: const Duration(seconds: 5),
+                                    duration: const Duration(seconds: 2),
                                     icon: const Icon(Icons.warning));
                               });
                               return true;
@@ -217,10 +216,10 @@ _showFormDialogAdd(context, StudentController controls) {
                           .guardarEstudiantes(
                               textNombres.text, textApellidos.text)
                           .then((value) {
-                        Get.snackbar("Estudiante", controls.mensaje.value,
-                            duration: const Duration(seconds: 3),
-                            icon: const Icon(Icons.warning));
                         Get.back();
+                        Get.snackbar('Estudiante', controls.mensaje.value,
+                            icon: const Icon(Icons.dangerous),
+                            duration: const Duration(seconds: 2));
                       });
                     },
                     child: const Text("Guardar")),
@@ -271,13 +270,18 @@ _showFormDialogEdit(context, StudentController controls, int index) {
                 ),
                 TextButton(
                     onPressed: () async {
-                      await controls.editarEstudiante(Estudiante(
-                          nombre: textNombres.text,
-                          apellidos: textApellidos.text,
-                          id: controls.listaEstudiante[index].id,
-                          classID: controls.listaEstudiante[index].classID));
-
-                      Get.back();
+                      await controls
+                          .editarEstudiante(Estudiante(
+                              nombre: textNombres.text,
+                              apellidos: textApellidos.text,
+                              id: controls.listaEstudiante[index].id,
+                              classID: controls.listaEstudiante[index].classID))
+                          .then((value) {
+                        Get.back();
+                        Get.snackbar('Estudiante', controls.mensaje.value,
+                            icon: const Icon(Icons.dangerous),
+                            duration: const Duration(seconds: 2));
+                      });
                     },
                     child: const Text("Guardar")),
               ],

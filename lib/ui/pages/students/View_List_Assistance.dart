@@ -1,8 +1,7 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:maestros/domain/controllers/controllerAsistencia.dart';
 import 'package:maestros/domain/controllers/controllerMaterias.dart';
 import 'package:maestros/domain/controllers/controllerStudent.dart';
 import 'package:maestros/domain/models/Materias.dart';
@@ -15,6 +14,8 @@ class ListAssistanceStudent extends StatelessWidget {
   Widget build(BuildContext context) {
     final StudentController controle = Get.find();
     final MateriasController controlm = Get.find();
+    final AsistenciaController controla = Get.find();
+
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.landscapeLeft,
       DeviceOrientation.landscapeRight,
@@ -26,6 +27,8 @@ class ListAssistanceStudent extends StatelessWidget {
           DeviceOrientation.portraitDown,
         ]);
         controle.listaEstudiante.clear();
+        controla.excusa.clear();
+        controla.asistio.clear();
         return true;
       },
       child: Scaffold(
@@ -37,7 +40,7 @@ class ListAssistanceStudent extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const Text("Grupos : "),
-              _dropDownButton(controlm, controle)
+              _dropDownButton(controlm, controle, controla)
             ],
           ),
           Expanded(
@@ -77,10 +80,12 @@ class ListAssistanceStudent extends StatelessWidget {
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 const Text("Asistio"),
-                                Checkbox(
-                                    value: false,
-                                    onChanged: (value) =>
-                                        {value! ? false : true}),
+                                Obx(() => Checkbox(
+                                    value: controla.asistio[index],
+                                    onChanged: (value) {
+                                      controla.cambiarAsistencia(
+                                          index, value ?? false);
+                                    })),
                               ],
                             ),
                           ),
@@ -90,10 +95,12 @@ class ListAssistanceStudent extends StatelessWidget {
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 const Text("Excusa"),
-                                Checkbox(
-                                    value: false,
-                                    onChanged: (value) =>
-                                        {value! ? false : true}),
+                                Obx(() => Checkbox(
+                                    value: controla.excusa[index],
+                                    onChanged: (value) {
+                                      controla.cambiarExcusa(
+                                          index, value ?? false);
+                                    })),
                               ],
                             ),
                           ),
@@ -115,19 +122,21 @@ class ListAssistanceStudent extends StatelessWidget {
             ),
           ))
         ]),
-        floatingActionButton: FloatingActionButton.extended(
-          onPressed: () {
-            _showFormDialogAdd(context, controle);
-          },
-          icon: const Icon(Icons.add),
-          label: const Text("Guardar asistencia"),
+        floatingActionButton: Align(
+          alignment: Alignment.bottomCenter,
+          child: FloatingActionButton.extended(
+            onPressed: () {},
+            icon: const Icon(Icons.add),
+            label: const Text("Guardar asistencia"),
+          ),
         ),
       ),
     );
   }
 }
 
-_dropDownButton(MateriasController mc, StudentController sc) {
+_dropDownButton(
+    MateriasController mc, StudentController sc, AsistenciaController ac) {
   List<Grupo> list = mc.MateriaFirebase;
   return Obx(() => SizedBox(
         width: 200,
@@ -147,65 +156,11 @@ _dropDownButton(MateriasController mc, StudentController sc) {
                 }
               }
 
-              sc.cargarEstudiantes();
+              sc.cargarEstudiantes().then((value) {
+                ac.cargarAsistencia();
+              });
             }),
       ));
-}
-
-_showFormDialogAdd(context, StudentController controls) {
-  final TextEditingController textNombres = TextEditingController();
-  final TextEditingController textApellidos = TextEditingController();
-  showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text("Añadir estudiante"),
-          content: SizedBox(
-            height: 150,
-            child: Form(
-                child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                TextField(
-                  controller: textNombres,
-                  decoration: const InputDecoration(label: Text("Nombres")),
-                ),
-                TextField(
-                  controller: textApellidos,
-                  decoration: const InputDecoration(label: Text("Apellidos")),
-                ),
-              ],
-            )),
-          ),
-          actions: [
-            ButtonBar(
-              alignment: MainAxisAlignment.spaceAround,
-              children: [
-                TextButton(
-                  onPressed: () {
-                    Get.back();
-                  },
-                  child: const Text("Cancelar"),
-                ),
-                TextButton(
-                    onPressed: () async {
-                      await controls
-                          .guardarEstudiantes(
-                              textNombres.text, textApellidos.text)
-                          .then((value) {
-                        Get.snackbar("Estudiante", controls.mensaje.value,
-                            duration: const Duration(seconds: 3),
-                            icon: const Icon(Icons.warning));
-                        Get.back();
-                      });
-                    },
-                    child: const Text("Guardar")),
-              ],
-            )
-          ],
-        );
-      });
 }
 
 bool comprobarCampos(String n, String a) {
