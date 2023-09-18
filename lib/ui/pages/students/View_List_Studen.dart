@@ -177,18 +177,23 @@ _dropDownButton(MateriasController mc, StudentController sc) {
 _showFormDialogAdd(context, StudentController controls) {
   final TextEditingController textNombres = TextEditingController();
   final TextEditingController textApellidos = TextEditingController();
+  final TextEditingController textCedula = TextEditingController();
   showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
           title: const Text("Añadir estudiante"),
           content: SizedBox(
-            height: 150,
+            height: 180,
             child: Form(
                 child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                TextField(
+                  controller: textCedula,
+                  decoration: const InputDecoration(label: Text("Cedula")),
+                ),
                 TextField(
                   controller: textNombres,
                   decoration: const InputDecoration(label: Text("Nombres")),
@@ -213,8 +218,8 @@ _showFormDialogAdd(context, StudentController controls) {
                 TextButton(
                     onPressed: () async {
                       await controls
-                          .guardarEstudiantes(
-                              textNombres.text, textApellidos.text)
+                          .guardarEstudiantes(textNombres.text,
+                              textApellidos.text, textCedula.text)
                           .then((value) {
                         Get.back();
                         Get.snackbar('Estudiante', controls.mensaje.value,

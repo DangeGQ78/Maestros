@@ -62,6 +62,17 @@ class scaffoldAdd extends StatelessWidget {
                   height: 50,
                 ),
                 text_nombre(nombre: nombre),
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Text('Fecha de finalizacion: '),
+                    IconButton(
+                        onPressed: () {
+                          _showDatePicker(context);
+                        },
+                        icon: const Icon(Icons.calendar_month_outlined))
+                  ],
+                ),
                 IconButton(
                   onPressed: () {
                     controld.cargarDias();
@@ -275,4 +286,12 @@ _dropDownButton(DateController d, int i) {
       onChanged: (value) {
         d.setDia(i, value.toString());
       });
+}
+
+void _showDatePicker(context) {
+  showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2023),
+      lastDate: DateTime(2055));
 }

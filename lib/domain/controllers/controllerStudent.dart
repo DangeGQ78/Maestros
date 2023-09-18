@@ -8,9 +8,12 @@ class StudentController extends GetxController {
   RxString mensaje = "".obs;
   RxString idclass = "".obs;
 
-  Future<void> guardarEstudiantes(nombre, apellidos) async {
+  Future<void> guardarEstudiantes(nombre, apellidos, cedula) async {
     Estudiante e = Estudiante(
-        nombre: nombre, apellidos: apellidos, id: "", classID: idclass.value);
+        nombre: nombre,
+        apellidos: apellidos,
+        id: cedula,
+        classID: idclass.value);
     mensaje.value = await PeticionesEstudiantes.guardarEstudiantes(e);
 
     cargarEstudiantes();

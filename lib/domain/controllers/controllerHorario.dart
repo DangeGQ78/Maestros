@@ -24,15 +24,11 @@ class HorarioController extends GetxController {
   }
 
   void cargarEventos() {
-    listaClases.value.clear();
+    listaClases.clear();
     DateTime diaActual;
     for (Grupo materia in materiac.MateriaFirebase) {
       for (var e in materia.dias) {
-        diaActual = determinarFechaInicial(e.nombre);
-        RecurrenceProperties recurrence =
-            RecurrenceProperties(startDate: diaActual);
-        recurrence.recurrenceType = RecurrenceType.daily;
-        recurrence.interval = 7;
+        diaActual = DateTime.now();
         Appointment appointment = Appointment(
             color: getRandomColor(),
             subject: materia.nombre,
@@ -42,8 +38,8 @@ class HorarioController extends GetxController {
                     e.horaInicio.hour, e.horaInicio.minute)
                 .add(Duration(
                     hours: restarHora(e.horaInicio.hour, e.horaFin.hour))),
-            recurrenceRule: SfCalendar.generateRRule(recurrence, DateTime.now(),
-                DateTime.now().add(const Duration(hours: 2))));
+            recurrenceRule:
+                "FREQ=WEEKLY;INTERVAL=1;BYDAY=${ruleDay(e.nombre)};UNTIL=20230908T183000Z");
         listaClases.add(appointment);
       }
     }
@@ -51,21 +47,18 @@ class HorarioController extends GetxController {
 
   int restarHora(int hi, int hf) => hf - hi;
 
-  DateTime determinarFechaInicial(String dia) {
-    final diasSemana = {
-      'lunes': DateTime(2023, 1, 2),
-      'martes': DateTime(2023, 1, 3),
-      'miércoles': DateTime(2023, 1, 4),
-      'jueves': DateTime(2023, 1, 5),
-      'viernes': DateTime(2023, 1, 6),
-      'sábado': DateTime(2023, 1, 7),
+  String? ruleDay(String dia) {
+    final Map<String, String> dias = {
+      'lunes': 'MO',
+      'martes': 'TU',
+      'miercoles': 'WE',
+      'jueves': 'TH',
+      'viernes': 'FR',
+      'sabado': 'SA',
+      'domingo': 'SU'
     };
 
-    final diaLowerCase = dia.toLowerCase();
-
-    return diasSemana.containsKey(diaLowerCase)
-        ? diasSemana[diaLowerCase]!
-        : DateTime(2023, 1, 2);
+    return dias.containsKey(dia) ? dias[dia] : "";
   }
 
   DateTime fechaProxima(MateriasController c) {
@@ -103,3 +96,25 @@ class DataSource extends CalendarDataSource {
     appointments = source;
   }
 }
+
+/*
+ for (var e in materia.dias) {
+        diaActual = determinarFechaInicial(e.nombre);
+        RecurrenceProperties recurrence =
+            RecurrenceProperties(startDate: diaActual);
+        recurrence.recurrenceType = RecurrenceType.daily;
+        recurrence.interval = 7;
+        Appointment appointment = Appointment(
+            color: getRandomColor(),
+            subject: materia.nombre,
+            startTime: DateTime(diaActual.year, diaActual.month, diaActual.day,
+                e.horaInicio.hour, e.horaInicio.minute),
+            endTime: DateTime(diaActual.year, diaActual.month, diaActual.day,
+                    e.horaInicio.hour, e.horaInicio.minute)
+                .add(Duration(
+                    hours: restarHora(e.horaInicio.hour, e.horaFin.hour))),
+            recurrenceRule: SfCalendar.generateRRule(recurrence, DateTime.now(),
+                DateTime.now().add(const Duration(hours: 2))));
+        listaClases.add(appointment);
+      }
+*/

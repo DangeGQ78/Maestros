@@ -6,6 +6,8 @@ class Regristrase extends StatelessWidget {
   const Regristrase({super.key});
   static final textImail = TextEditingController();
   static final TextEditingController textPassword = TextEditingController();
+  static final TextEditingController textPasswordConfirm =
+      TextEditingController();
   static var colors = const Color.fromRGBO(0, 191, 99, 1);
   static UsersController controlu = UsersController();
 
@@ -20,12 +22,22 @@ class Regristrase extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           text_email(textImail: textImail, colors: colors),
-          text_pass(textPassword: textPassword, colors: colors),
-          button_signUp(
+          text_pass(
+            textPassword: textPassword,
+            colors: colors,
+            hiddentext: "Contraseña",
+          ),
+          text_pass(
+              textPassword: textPasswordConfirm,
               colors: colors,
-              controlu: controlu,
-              textImail: textImail,
-              textPassword: textPassword),
+              hiddentext: "Confirmar contraseña"),
+          button_signUp(
+            colors: colors,
+            controlu: controlu,
+            textImail: textImail,
+            textPassword: textPassword,
+            textPasswordConfirm: textPasswordConfirm,
+          ),
         ],
       ),
     );
@@ -39,12 +51,14 @@ class button_signUp extends StatelessWidget {
     required this.controlu,
     required this.textImail,
     required this.textPassword,
+    required this.textPasswordConfirm,
   });
 
   final Color colors;
   final UsersController controlu;
   final TextEditingController textImail;
   final TextEditingController textPassword;
+  final TextEditingController textPasswordConfirm;
 
   @override
   Widget build(BuildContext context) {
@@ -59,19 +73,28 @@ class button_signUp extends StatelessWidget {
             border: Border.all(color: Colors.black, style: BorderStyle.solid)),
         child: OutlinedButton(
             onPressed: () {
-              controlu
-                  .crearUsuario(textImail.text, textPassword.text)
-                  .then((value) {
+              if (verificarPass(textPassword.text, textPasswordConfirm.text)) {
+                controlu.crearUsuario(textImail.text, textPassword.text).then(
+                  (value) {
+                    Get.snackbar(
+                      'Maestros',
+                      controlu.mensaje.value,
+                      duration: const Duration(seconds: 3),
+                      icon: const Icon(Icons.info),
+                      shouldIconPulse: true,
+                    );
+                  },
+                );
+                Get.back();
+              } else {
                 Get.snackbar(
                   'Maestros',
-                  controlu.mensaje.value,
+                  'la contraseñas no coinciden',
                   duration: const Duration(seconds: 3),
                   icon: const Icon(Icons.info),
                   shouldIconPulse: true,
                 );
-              });
-
-              Get.back();
+              }
             },
             child: const Text(
               "registrarse",
@@ -84,24 +107,25 @@ class button_signUp extends StatelessWidget {
 }
 
 class text_pass extends StatelessWidget {
-  const text_pass({
-    super.key,
-    required this.textPassword,
-    required this.colors,
-  });
+  const text_pass(
+      {super.key,
+      required this.textPassword,
+      required this.colors,
+      required this.hiddentext});
 
   final TextEditingController textPassword;
   final Color colors;
+  final String hiddentext;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 50, right: 50),
+      padding: const EdgeInsets.only(left: 50, right: 50, top: 40),
       child: TextField(
         controller: textPassword,
         obscureText: true,
         decoration: InputDecoration(
-          hintText: "password",
+          hintText: hiddentext,
           prefixIcon: const Icon(Icons.key),
           border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
@@ -129,7 +153,11 @@ class text_email extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 50, right: 50, bottom: 50),
+      padding: const EdgeInsets.only(
+        top: 50,
+        left: 50,
+        right: 50,
+      ),
       child: TextField(
         controller: textImail,
         decoration: InputDecoration(
@@ -146,4 +174,11 @@ class text_email extends StatelessWidget {
       ),
     );
   }
+}
+
+bool verificarPass(textPass, textEmailConfirm) {
+  if (textPass == textEmailConfirm) {
+    return true;
+  }
+  return false;
 }
