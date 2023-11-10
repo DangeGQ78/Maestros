@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:maestros/ui/auth/login.dart';
+import 'package:maestros/ui/auth/login_get.dart';
+import 'package:maestros/ui/auth/register_get.dart';
 import 'package:maestros/ui/auth/registrarse.dart';
 import 'package:maestros/ui/pages/Schedule/ViewHorario.dart';
 import 'package:maestros/ui/pages/maters/View_Grupos.dart';
@@ -45,13 +47,13 @@ class App extends StatelessWidget {
               return const Home();
             } else {
               // No hay usuario autenticado, redirigir a la pantalla de inicio de sesión
-              return const Login();
+              return const LoginGet();
             }
           }
         },
       ),
       routes: {
-        "/login": (context) => const Login(),
+        "/login": (context) => const LoginGet(),
         "/home": (context) => const Home(),
         "/materias": (context) => const View_grupos(),
         "/materiasAdd": (context) => const AddMaerias(),
@@ -59,7 +61,7 @@ class App extends StatelessWidget {
         "/horario": (context) => ViewHorario(),
         "/listas": (context) => const ListStudent(),
         "/listaAsistencia": (context) => const ListAssistanceStudent(),
-        "/registrarse": (context) => const Regristrase()
+        "/registrarse": (context) => const RegisterGet()
       },
     );
   }

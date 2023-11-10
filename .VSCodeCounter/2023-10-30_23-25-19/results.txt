@@ -1,0 +1,176 @@
+Date : 2023-10-30 23:25:19
+Directory : c:\Users\Dange\Videos\projects\maestros 2\Maestros
+Total : 86 files,  4195 codes, 351 comments, 512 blanks, all 5058 lines
+
+Languages
++------------+------------+------------+------------+------------+------------+
+| language   | files      | code       | comment    | blank      | total      |
++------------+------------+------------+------------+------------+------------+
+| Dart       |         36 |      2,602 |         90 |        240 |      2,932 |
+| C++        |         16 |        532 |        118 |        181 |        831 |
+| XML        |         13 |        488 |         38 |         17 |        543 |
+| JSON       |          7 |        344 |          0 |          4 |        348 |
+| Groovy     |          3 |         93 |          5 |         22 |        120 |
+| Swift      |          4 |         44 |          3 |         12 |         59 |
+| HTML       |          1 |         38 |         16 |          6 |         60 |
+| YAML       |          2 |         33 |         81 |         19 |        133 |
+| Markdown   |          2 |         13 |          0 |          9 |         22 |
+| Properties |          2 |          8 |          0 |          2 |         10 |
++------------+------------+------------+------------+------------+------------+
+
+Directories
++------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                             | files      | code       | comment    | blank      | total      |
++------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                                |         86 |      4,195 |        351 |        512 |      5,058 |
+| . (Files)                                                                                                        |          3 |         43 |         81 |         26 |        150 |
+| android                                                                                                          |         16 |        267 |         41 |         38 |        346 |
+| android (Files)                                                                                                  |          3 |         39 |          0 |         10 |         49 |
+| android\app                                                                                                      |         12 |        223 |         41 |         27 |        291 |
+| android\app (Files)                                                                                              |          2 |        139 |          5 |         13 |        157 |
+| android\app\src                                                                                                  |         10 |         84 |         36 |         14 |        134 |
+| android\app\src\debug                                                                                            |          1 |          4 |          4 |          1 |          9 |
+| android\app\src\main                                                                                             |          8 |         76 |         28 |         12 |        116 |
+| android\app\src\main (Files)                                                                                     |          1 |         28 |          6 |          1 |         35 |
+| android\app\src\main\res                                                                                         |          7 |         48 |         22 |         11 |         81 |
+| android\app\src\main\res\drawable                                                                                |          2 |         13 |          2 |          4 |         19 |
+| android\app\src\main\res\drawable-v21                                                                            |          2 |         13 |          2 |          4 |         19 |
+| android\app\src\main\res\values                                                                                  |          2 |         13 |          9 |          2 |         24 |
+| android\app\src\main\res\values-night                                                                            |          1 |          9 |          9 |          1 |         19 |
+| android\app\src\profile                                                                                          |          1 |          4 |          4 |          1 |          9 |
+| android\gradle                                                                                                   |          1 |          5 |          0 |          1 |          6 |
+| android\gradle\wrapper                                                                                           |          1 |          5 |          0 |          1 |          6 |
+| ios                                                                                                              |          8 |        229 |          2 |          9 |        240 |
+| ios (Files)                                                                                                      |          1 |          7 |          0 |          0 |          7 |
+| ios\Runner                                                                                                       |          7 |        222 |          2 |          9 |        233 |
+| ios\Runner (Files)                                                                                               |          2 |         13 |          0 |          3 |         16 |
+| ios\Runner\Assets.xcassets                                                                                       |          3 |        148 |          0 |          4 |        152 |
+| ios\Runner\Assets.xcassets\AppIcon.appiconset                                                                    |          1 |        122 |          0 |          1 |        123 |
+| ios\Runner\Assets.xcassets\LaunchImage.imageset                                                                  |          2 |         26 |          0 |          3 |         29 |
+| ios\Runner\Base.lproj                                                                                            |          2 |         61 |          2 |          2 |         65 |
+| lib                                                                                                              |         35 |      2,587 |         90 |        236 |      2,913 |
+| lib (Files)                                                                                                      |          2 |         80 |         24 |          7 |        111 |
+| lib\domain                                                                                                       |         14 |        450 |         34 |         82 |        566 |
+| lib\domain\controllers                                                                                           |          7 |        376 |         21 |         68 |        465 |
+| lib\domain\models                                                                                                |          7 |         74 |         13 |         14 |        101 |
+| lib\peticiones                                                                                                   |          4 |        185 |          0 |         29 |        214 |
+| lib\ui                                                                                                           |         15 |      1,872 |         32 |        118 |      2,022 |
+| lib\ui (Files)                                                                                                   |          1 |         61 |          4 |          3 |         68 |
+| lib\ui\auth                                                                                                      |          3 |        505 |          1 |         37 |        543 |
+| lib\ui\pages                                                                                                     |         11 |      1,306 |         27 |         78 |      1,411 |
+| lib\ui\pages (Files)                                                                                             |          1 |          8 |          0 |          3 |         11 |
+| lib\ui\pages\Schedule                                                                                            |          1 |         31 |          0 |          4 |         35 |
+| lib\ui\pages\home                                                                                                |          1 |        101 |          0 |          6 |        107 |
+| lib\ui\pages\maters                                                                                              |          4 |        587 |         27 |         38 |        652 |
+| lib\ui\pages\students                                                                                            |          2 |        462 |          0 |         17 |        479 |
+| lib\ui\pages\utils                                                                                               |          2 |        117 |          0 |         10 |        127 |
+| linux                                                                                                            |          5 |         94 |         27 |         38 |        159 |
+| linux (Files)                                                                                                    |          3 |         86 |         18 |         27 |        131 |
+| linux\flutter                                                                                                    |          2 |          8 |          9 |         11 |         28 |
+| macos                                                                                                            |          6 |        450 |          3 |         12 |        465 |
+| macos (Files)                                                                                                    |          1 |          7 |          0 |          0 |          7 |
+| macos\Flutter                                                                                                    |          1 |         12 |          3 |          4 |         19 |
+| macos\Runner                                                                                                     |          4 |        431 |          0 |          8 |        439 |
+| macos\Runner (Files)                                                                                             |          2 |         20 |          0 |          6 |         26 |
+| macos\Runner\Assets.xcassets                                                                                     |          1 |         68 |          0 |          1 |         69 |
+| macos\Runner\Assets.xcassets\AppIcon.appiconset                                                                  |          1 |         68 |          0 |          1 |         69 |
+| macos\Runner\Base.lproj                                                                                          |          1 |        343 |          0 |          1 |        344 |
+| test                                                                                                             |          1 |         15 |          0 |          4 |         19 |
+| web                                                                                                              |          2 |         73 |         16 |          7 |         96 |
+| windows                                                                                                          |         10 |        437 |         91 |        142 |        670 |
+| windows\flutter                                                                                                  |          2 |         11 |          9 |         11 |         31 |
+| windows\runner                                                                                                   |          8 |        426 |         82 |        131 |        639 |
++------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| filename                                                                                                         | language   | code       | comment    | blank      | total      |
++------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| c:\Users\Dange\Videos\projects\maestros 2\Maestros\README.md                                                     | Markdown   |         10 |          0 |          7 |         17 |
+| c:\Users\Dange\Videos\projects\maestros 2\Maestros\analysis_options.yaml                                         | YAML       |          3 |         23 |          4 |         30 |
+| c:\Users\Dange\Videos\projects\maestros 2\Maestros\android\app\build.gradle                                      | Groovy     |         57 |          5 |         13 |         75 |
+| c:\Users\Dange\Videos\projects\maestros 2\Maestros\android\app\google-services.json                              | JSON       |         82 |          0 |          0 |         82 |
+| c:\Users\Dange\Videos\projects\maestros 2\Maestros\android\app\src\debug\AndroidManifest.xml                     | XML        |          4 |          4 |          1 |          9 |
+| c:\Users\Dange\Videos\projects\maestros 2\Maestros\android\app\src\main\AndroidManifest.xml                      | XML        |         28 |          6 |          1 |         35 |
+| c:\Users\Dange\Videos\projects\maestros 2\Maestros\android\app\src\main\res\drawable-v21\bg_color.xml            | XML        |          4 |          0 |          2 |          6 |
+| c:\Users\Dange\Videos\projects\maestros 2\Maestros\android\app\src\main\res\drawable-v21\launch_background.xml   | XML        |          9 |          2 |          2 |         13 |
+| c:\Users\Dange\Videos\projects\maestros 2\Maestros\android\app\src\main\res\drawable\bg_color.xml                | XML        |          4 |          0 |          2 |          6 |
+| c:\Users\Dange\Videos\projects\maestros 2\Maestros\android\app\src\main\res\drawable\launch_background.xml       | XML        |          9 |          2 |          2 |         13 |
+| c:\Users\Dange\Videos\projects\maestros 2\Maestros\android\app\src\main\res\values-night\styles.xml              | XML        |          9 |          9 |          1 |         19 |
+| c:\Users\Dange\Videos\projects\maestros 2\Maestros\android\app\src\main\res\values\color.xml                     | XML        |          4 |          0 |          1 |          5 |
+| c:\Users\Dange\Videos\projects\maestros 2\Maestros\android\app\src\main\res\values\styles.xml                    | XML        |          9 |          9 |          1 |         19 |
+| c:\Users\Dange\Videos\projects\maestros 2\Maestros\android\app\src\profile\AndroidManifest.xml                   | XML        |          4 |          4 |          1 |          9 |
+| c:\Users\Dange\Videos\projects\maestros 2\Maestros\android\build.gradle                                          | Groovy     |         28 |          0 |          5 |         33 |
+| c:\Users\Dange\Videos\projects\maestros 2\Maestros\android\gradle.properties                                     | Properties |          3 |          0 |          1 |          4 |
+| c:\Users\Dange\Videos\projects\maestros 2\Maestros\android\gradle\wrapper\gradle-wrapper.properties              | Properties |          5 |          0 |          1 |          6 |
+| c:\Users\Dange\Videos\projects\maestros 2\Maestros\android\settings.gradle                                       | Groovy     |          8 |          0 |          4 |         12 |
+| c:\Users\Dange\Videos\projects\maestros 2\Maestros\ios\Runner\AppDelegate.swift                                  | Swift      |         12 |          0 |          2 |         14 |
+| c:\Users\Dange\Videos\projects\maestros 2\Maestros\ios\Runner\Assets.xcassets\AppIcon.appiconset\Contents.json   | JSON       |        122 |          0 |          1 |        123 |
+| c:\Users\Dange\Videos\projects\maestros 2\Maestros\ios\Runner\Assets.xcassets\LaunchImage.imageset\Contents.json | JSON       |         23 |          0 |          1 |         24 |
+| c:\Users\Dange\Videos\projects\maestros 2\Maestros\ios\Runner\Assets.xcassets\LaunchImage.imageset\README.md     | Markdown   |          3 |          0 |          2 |          5 |
+| c:\Users\Dange\Videos\projects\maestros 2\Maestros\ios\Runner\Base.lproj\LaunchScreen.storyboard                 | XML        |         36 |          1 |          1 |         38 |
+| c:\Users\Dange\Videos\projects\maestros 2\Maestros\ios\Runner\Base.lproj\Main.storyboard                         | XML        |         25 |          1 |          1 |         27 |
+| c:\Users\Dange\Videos\projects\maestros 2\Maestros\ios\Runner\Runner-Bridging-Header.h                           | C++        |          1 |          0 |          1 |          2 |
+| c:\Users\Dange\Videos\projects\maestros 2\Maestros\ios\firebase_app_id_file.json                                 | JSON       |          7 |          0 |          0 |          7 |
+| c:\Users\Dange\Videos\projects\maestros 2\Maestros\lib\domain\controllers\controllerAsistencia.dart              | Dart       |         31 |          0 |          7 |         38 |
+| c:\Users\Dange\Videos\projects\maestros 2\Maestros\lib\domain\controllers\controllerDate.dart                    | Dart       |         60 |          0 |         12 |         72 |
+| c:\Users\Dange\Videos\projects\maestros 2\Maestros\lib\domain\controllers\controllerHorario.dart                 | Dart       |         86 |         21 |         13 |        120 |
+| c:\Users\Dange\Videos\projects\maestros 2\Maestros\lib\domain\controllers\controllerMaterias.dart                | Dart       |         90 |          0 |         14 |        104 |
+| c:\Users\Dange\Videos\projects\maestros 2\Maestros\lib\domain\controllers\controllerStudent.dart                 | Dart       |         48 |          0 |          9 |         57 |
+| c:\Users\Dange\Videos\projects\maestros 2\Maestros\lib\domain\controllers\controllerUsers.dart                   | Dart       |         57 |          0 |         11 |         68 |
+| c:\Users\Dange\Videos\projects\maestros 2\Maestros\lib\domain\controllers\login_controller.dart                  | Dart       |          4 |          0 |          2 |          6 |
+| c:\Users\Dange\Videos\projects\maestros 2\Maestros\lib\domain\models\Materias.dart                               | Dart       |          7 |          0 |          2 |          9 |
+| c:\Users\Dange\Videos\projects\maestros 2\Maestros\lib\domain\models\dias.dart                                   | Dart       |          7 |          0 |          2 |          9 |
+| c:\Users\Dange\Videos\projects\maestros 2\Maestros\lib\domain\models\estudiante.dart                             | Dart       |         11 |          0 |          1 |         12 |
+| c:\Users\Dange\Videos\projects\maestros 2\Maestros\lib\domain\models\grupos.dart                                 | Dart       |          0 |         13 |          0 |         13 |
+| c:\Users\Dange\Videos\projects\maestros 2\Maestros\lib\domain\models\listaAsistencia.dart                        | Dart       |          8 |          0 |          2 |         10 |
+| c:\Users\Dange\Videos\projects\maestros 2\Maestros\lib\domain\models\textos.dart                                 | Dart       |         22 |          0 |          4 |         26 |
+| c:\Users\Dange\Videos\projects\maestros 2\Maestros\lib\domain\models\users.dart                                  | Dart       |         19 |          0 |          3 |         22 |
+| c:\Users\Dange\Videos\projects\maestros 2\Maestros\lib\firebase_options.dart                                     | Dart       |         48 |         12 |          3 |         63 |
+| c:\Users\Dange\Videos\projects\maestros 2\Maestros\lib\main.dart                                                 | Dart       |         32 |         12 |          4 |         48 |
+| c:\Users\Dange\Videos\projects\maestros 2\Maestros\lib\peticiones\PeticionesAsistencia.dart                      | Dart       |         32 |          0 |          5 |         37 |
+| c:\Users\Dange\Videos\projects\maestros 2\Maestros\lib\peticiones\PeticionesEstudiante.dart                      | Dart       |         50 |          0 |          8 |         58 |
+| c:\Users\Dange\Videos\projects\maestros 2\Maestros\lib\peticiones\peticionesMateria.dart                         | Dart       |         63 |          0 |          8 |         71 |
+| c:\Users\Dange\Videos\projects\maestros 2\Maestros\lib\peticiones\peticionesUsers.dart                           | Dart       |         40 |          0 |          8 |         48 |
+| c:\Users\Dange\Videos\projects\maestros 2\Maestros\lib\ui\app.dart                                               | Dart       |         61 |          4 |          3 |         68 |
+| c:\Users\Dange\Videos\projects\maestros 2\Maestros\lib\ui\auth\login.dart                                        | Dart       |        171 |          1 |         16 |        188 |
+| c:\Users\Dange\Videos\projects\maestros 2\Maestros\lib\ui\auth\login_get.dart                                    | Dart       |        162 |          0 |          8 |        170 |
+| c:\Users\Dange\Videos\projects\maestros 2\Maestros\lib\ui\auth\registrarse.dart                                  | Dart       |        172 |          0 |         13 |        185 |
+| c:\Users\Dange\Videos\projects\maestros 2\Maestros\lib\ui\pages\Schedule\ViewHorario.dart                        | Dart       |         31 |          0 |          4 |         35 |
+| c:\Users\Dange\Videos\projects\maestros 2\Maestros\lib\ui\pages\actividades.dart                                 | Dart       |          8 |          0 |          3 |         11 |
+| c:\Users\Dange\Videos\projects\maestros 2\Maestros\lib\ui\pages\home\home.dart                                   | Dart       |        101 |          0 |          6 |        107 |
+| c:\Users\Dange\Videos\projects\maestros 2\Maestros\lib\ui\pages\maters\View_Add_Materias.dart                    | Dart       |        280 |          1 |         17 |        298 |
+| c:\Users\Dange\Videos\projects\maestros 2\Maestros\lib\ui\pages\maters\View_Edit_Grupos.dart                     | Dart       |        249 |          1 |         15 |        265 |
+| c:\Users\Dange\Videos\projects\maestros 2\Maestros\lib\ui\pages\maters\View_Grupos.dart                          | Dart       |         58 |         25 |          5 |         88 |
+| c:\Users\Dange\Videos\projects\maestros 2\Maestros\lib\ui\pages\maters\viewDialogic.dart                         | Dart       |          0 |          0 |          1 |          1 |
+| c:\Users\Dange\Videos\projects\maestros 2\Maestros\lib\ui\pages\students\View_List_Assistance.dart               | Dart       |        166 |          0 |          7 |        173 |
+| c:\Users\Dange\Videos\projects\maestros 2\Maestros\lib\ui\pages\students\View_List_Studen.dart                   | Dart       |        296 |          0 |         10 |        306 |
+| c:\Users\Dange\Videos\projects\maestros 2\Maestros\lib\ui\pages\utils\datePicker.dart                            | Dart       |         28 |          0 |          6 |         34 |
+| c:\Users\Dange\Videos\projects\maestros 2\Maestros\lib\ui\pages\utils\drawer.dart                                | Dart       |         89 |          0 |          4 |         93 |
+| c:\Users\Dange\Videos\projects\maestros 2\Maestros\linux\flutter\generated_plugin_registrant.cc                  | C++        |          3 |          4 |          5 |         12 |
+| c:\Users\Dange\Videos\projects\maestros 2\Maestros\linux\flutter\generated_plugin_registrant.h                   | C++        |          5 |          5 |          6 |         16 |
+| c:\Users\Dange\Videos\projects\maestros 2\Maestros\linux\main.cc                                                 | C++        |          5 |          0 |          2 |          7 |
+| c:\Users\Dange\Videos\projects\maestros 2\Maestros\linux\my_application.cc                                       | C++        |         74 |         11 |         20 |        105 |
+| c:\Users\Dange\Videos\projects\maestros 2\Maestros\linux\my_application.h                                        | C++        |          7 |          7 |          5 |         19 |
+| c:\Users\Dange\Videos\projects\maestros 2\Maestros\macos\Flutter\GeneratedPluginRegistrant.swift                 | Swift      |         12 |          3 |          4 |         19 |
+| c:\Users\Dange\Videos\projects\maestros 2\Maestros\macos\Runner\AppDelegate.swift                                | Swift      |          8 |          0 |          2 |         10 |
+| c:\Users\Dange\Videos\projects\maestros 2\Maestros\macos\Runner\Assets.xcassets\AppIcon.appiconset\Contents.json | JSON       |         68 |          0 |          1 |         69 |
+| c:\Users\Dange\Videos\projects\maestros 2\Maestros\macos\Runner\Base.lproj\MainMenu.xib                          | XML        |        343 |          0 |          1 |        344 |
+| c:\Users\Dange\Videos\projects\maestros 2\Maestros\macos\Runner\MainFlutterWindow.swift                          | Swift      |         12 |          0 |          4 |         16 |
+| c:\Users\Dange\Videos\projects\maestros 2\Maestros\macos\firebase_app_id_file.json                               | JSON       |          7 |          0 |          0 |          7 |
+| c:\Users\Dange\Videos\projects\maestros 2\Maestros\pubspec.yaml                                                  | YAML       |         30 |         58 |         15 |        103 |
+| c:\Users\Dange\Videos\projects\maestros 2\Maestros\test\widget_test.dart                                         | Dart       |         15 |          0 |          4 |         19 |
+| c:\Users\Dange\Videos\projects\maestros 2\Maestros\web\index.html                                                | HTML       |         38 |         16 |          6 |         60 |
+| c:\Users\Dange\Videos\projects\maestros 2\Maestros\web\manifest.json                                             | JSON       |         35 |          0 |          1 |         36 |
+| c:\Users\Dange\Videos\projects\maestros 2\Maestros\windows\flutter\generated_plugin_registrant.cc                | C++        |          6 |          4 |          5 |         15 |
+| c:\Users\Dange\Videos\projects\maestros 2\Maestros\windows\flutter\generated_plugin_registrant.h                 | C++        |          5 |          5 |          6 |         16 |
+| c:\Users\Dange\Videos\projects\maestros 2\Maestros\windows\runner\flutter_window.cpp                             | C++        |         48 |          4 |         15 |         67 |
+| c:\Users\Dange\Videos\projects\maestros 2\Maestros\windows\runner\flutter_window.h                               | C++        |         20 |          5 |          9 |         34 |
+| c:\Users\Dange\Videos\projects\maestros 2\Maestros\windows\runner\main.cpp                                       | C++        |         30 |          4 |         10 |         44 |
+| c:\Users\Dange\Videos\projects\maestros 2\Maestros\windows\runner\resource.h                                     | C++        |          9 |          6 |          2 |         17 |
+| c:\Users\Dange\Videos\projects\maestros 2\Maestros\windows\runner\utils.cpp                                      | C++        |         53 |          2 |         10 |         65 |
+| c:\Users\Dange\Videos\projects\maestros 2\Maestros\windows\runner\utils.h                                        | C++        |          8 |          6 |          6 |         20 |
+| c:\Users\Dange\Videos\projects\maestros 2\Maestros\windows\runner\win32_window.cpp                               | C++        |        210 |         24 |         55 |        289 |
+| c:\Users\Dange\Videos\projects\maestros 2\Maestros\windows\runner\win32_window.h                                 | C++        |         48 |         31 |         24 |        103 |
+| Total                                                                                                            |            |      4,195 |        351 |        512 |      5,058 |
++------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+

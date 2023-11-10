@@ -6,8 +6,10 @@ import 'package:maestros/domain/controllers/controllerHorario.dart';
 import 'package:maestros/domain/controllers/controllerMaterias.dart';
 import 'package:maestros/domain/controllers/controllerStudent.dart';
 import 'package:maestros/domain/controllers/controllerUsers.dart';
+import 'package:maestros/domain/controllers/login_controller.dart';
 import 'package:maestros/ui/app.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'dart:ui_web';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -35,6 +37,7 @@ void main() async {
   Get.put(HorarioController());
   Get.put(StudentController());
   Get.put(AsistenciaController());
+  Get.put(LoginController());
   runApp(const App());
 }
 
