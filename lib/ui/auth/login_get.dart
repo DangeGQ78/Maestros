@@ -122,6 +122,7 @@ class LoginGet extends StatelessWidget {
       );
     } else {
       return TextField(
+        autofocus: true,
         controller: textcontroller,
         decoration: const InputDecoration(suffixIcon: Icon(Icons.email)),
       );

@@ -2,10 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
-import 'package:maestros/ui/auth/login.dart';
+import 'package:maestros/configs/theme.dart';
 import 'package:maestros/ui/auth/login_get.dart';
 import 'package:maestros/ui/auth/register_get.dart';
-import 'package:maestros/ui/auth/registrarse.dart';
 import 'package:maestros/ui/pages/Schedule/ViewHorario.dart';
 import 'package:maestros/ui/pages/maters/View_Grupos.dart';
 import 'package:maestros/ui/pages/actividades.dart';
@@ -24,17 +23,13 @@ class App extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: "maestros",
-      localizationsDelegates: const [
+      localizationsDelegates: [
         GlobalMaterialLocalizations.delegate,
         SfGlobalLocalizations.delegate
       ],
       supportedLocales: const [Locale('es'), Locale('Es')],
       locale: const Locale('es'),
-      theme: ThemeData(
-        colorScheme: ThemeData().colorScheme.copyWith(
-              primary: const Color.fromRGBO(0, 191, 99, 1),
-            ),
-      ),
+      theme: Apptheme().theme(),
       home: FutureBuilder(
         future: FirebaseAuth.instance.authStateChanges().first,
         builder: (BuildContext context, AsyncSnapshot<User?> snapshot) {

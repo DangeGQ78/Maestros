@@ -56,7 +56,7 @@ class scaffoldAdd extends StatelessWidget {
           ),
           body: SingleChildScrollView(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 const SizedBox(
                   height: 50,
@@ -208,22 +208,17 @@ void _showFormDialog(context, DateController controld, index) {
             ButtonBar(
               alignment: MainAxisAlignment.spaceAround,
               children: [
-                Card(
-                  elevation: 2,
-                  child: TextButton(
+                TextButton(
+                  onPressed: () {
+                    Get.back();
+                  },
+                  child: const Text("Cancelar"),
+                ),
+                TextButton(
                     onPressed: () {
                       Get.back();
                     },
-                    child: const Text("Cancelar"),
-                  ),
-                ),
-                Card(
-                    elevation: 2,
-                    child: TextButton(
-                        onPressed: () {
-                          Get.back();
-                        },
-                        child: const Text("confirmar"))),
+                    child: const Text("confirmar")),
               ],
             )
           ],
@@ -290,8 +285,9 @@ _dropDownButton(DateController d, int i) {
 
 void _showDatePicker(context) {
   showDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(2023),
-      lastDate: DateTime(2055));
+    context: context,
+    initialDate: DateTime.now(),
+    firstDate: DateTime(2023),
+    lastDate: DateTime(2055),
+  );
 }

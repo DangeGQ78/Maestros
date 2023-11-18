@@ -39,7 +39,7 @@ class HorarioController extends GetxController {
                 .add(Duration(
                     hours: restarHora(e.horaInicio.hour, e.horaFin.hour))),
             recurrenceRule:
-                "FREQ=WEEKLY;INTERVAL=1;BYDAY=${ruleDay(e.nombre)};UNTIL=20230908T183000Z");
+                "FREQ=WEEKLY;INTERVAL=1;BYDAY=${ruleDay(e.nombre)};UNTIL=20240908T183000Z");
         listaClases.add(appointment);
       }
     }
